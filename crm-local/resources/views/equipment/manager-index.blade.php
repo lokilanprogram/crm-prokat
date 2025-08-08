@@ -1,8 +1,9 @@
-<!-- resources/views/units-directory.blade.php -->
+{{-- resources/views/equipment/index.blade.php --}}
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            общий справочник единицы измерения
+            {{ __('Справочник оборудования') }}
         </h2>
     </x-slot>
 
@@ -15,10 +16,10 @@
     </span>
     </div>
 
-    <main class="w-full px-2 sm:px-4 py-6 min-h-screen">
-
-        <!-- Панель пользователя + метрики (оставляем как есть) -->
+    <main class="w-full px-2 sm:px-4 py-6" x-data="{ showAddEquipment: false }">
+        <!-- Панель пользователя + метрики -->
         <div class="bg-gray-200 rounded-xl p-4 mb-6 flex items-center justify-between">
+            <!-- Левая часть -->
             <div class="flex flex-col items-start">
                 <div class="flex items-center gap-4 mb-2">
                     <div class="w-20 h-20 bg-black rounded-full"></div>
@@ -32,6 +33,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Метрики -->
             <div class="flex items-end gap-14 pr-20">
                 <div class="flex flex-col items-center">
                     <i class="bi bi-credit-card text-3xl text-gray-800 mb-2"></i>
@@ -54,8 +56,8 @@
             </div>
         </div>
 
-        <!-- Главные кнопки супер-админа -->
-        <div class="mb-6 flex gap-4 flex-wrap w-full">
+        <!-- Главное меню -->
+        <div class="flex gap-4 flex-wrap mb-6 border-b border-gray-200 pb-2">
             <div class="relative flex-1 min-w-[210px]">
                 <button onclick="toggleDropdown()" id="filters-btn"
                     class="w-full text-white font-semibold px-6 py-3 rounded text-lg shadow-md text-center flex items-center justify-center"
@@ -69,55 +71,23 @@
                     </svg>
                 </button>
                 <div id="filters-dropdown"
-                    class="hidden absolute z-20 mt-2 w-[230px] bg-white border border-gray-200 rounded shadow-lg left-0">
-                    <a href="{{ route('equipment.writeoff') }}"
+                    class="hidden absolute z-20 mt-2 w-[230px] bg-white border border-gray-200 rounded shadow-lg">
+                    <!-- пункты журналов тут -->
+                    <a href="{{ route('equipment.writeoff-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Списанное оборудование</a>
-                    <a href="{{ route('goods.income') }}"
+                    <a href="{{ route('goods.income-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Приход товаров</a>
-                    <a href="{{ route('goods.sales') }}"
+                    <a href="{{ route('goods.sales-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Продажи товаров</a>
-                    <a href="{{ route('stock.index') }}"
+                    <a href="{{ route('stock.index-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Склад</a>
-                    <a href="{{ route('reports.reconciliation') }}"
-                        class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">
-                        Акт сверки расчетов
-                    </a>
-                    <a href="{{ route('invoices.index') }}"
-                        class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">
-                        Журнал счетов
-                    </a>
+                    <a href="{{ route('reports.reconciliation-manager') }}"
+                        class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Акт сверки расчетов</a>
+                    <a href="{{ route('invoices.index-manager') }}"
+                        class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Журнал счетов</a>
                 </div>
             </div>
-
-            <script>
-                // Журналы
-                function toggleDropdown() {
-                    const d = document.getElementById('filters-dropdown');
-                    d.classList.toggle('hidden');
-                }
-                // Справочники
-                function toggleDropdownRefs() {
-                    const d = document.getElementById('refs-dropdown');
-                    d.classList.toggle('hidden');
-                }
-                // Закрывать оба меню при клике вне
-                document.addEventListener('click', function(e) {
-                    // Journals
-                    const btn = document.getElementById('filters-btn');
-                    const dropdown = document.getElementById('filters-dropdown');
-                    if (btn && dropdown && !btn.contains(e.target) && !dropdown.contains(e.target)) {
-                        dropdown.classList.add('hidden');
-                    }
-                    // Refs
-                    const btn2 = document.getElementById('refs-btn');
-                    const dropdown2 = document.getElementById('refs-dropdown');
-                    if (btn2 && dropdown2 && !btn2.contains(e.target) && !dropdown2.contains(e.target)) {
-                        dropdown2.classList.add('hidden');
-                    }
-                });
-            </script>
-
-            <a href="{{ route('reports.contracts') }}"
+            <a href="{{ route('reports.contracts-manager') }}"
             class="flex-1 min-w-[210px] w-full text-white font-semibold px-7 py-3 rounded text-lg shadow-md text-center"
             style="background-color:#337AB7;"
             onmouseover="this.style.backgroundColor='#23527c';"
@@ -138,202 +108,467 @@
                 </button>
                 <div id="refs-dropdown"
                     class="hidden absolute z-20 mt-2 w-[230px] bg-white border border-gray-200 rounded shadow-lg left-0">
-                    <a href="{{ route('discounts.index') }}"
+                    <a href="{{ route('equipment.manager-index') }}"
+                        class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Справочник оборудования</a>
+                    <a href="{{ route('discounts.index-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Скидки</a>
-                    <a href="{{ route('units-directory') }}"
+                    <a href="{{ route('units-directory-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Единицы измерения</a>
-                    <a href="{{ route('branches-directory') }}"
+                    <a href="{{ route('branches-directory-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Филиалы</a>
-                    <a href="{{ route('organizations-directory') }}"
+                    <a href="{{ route('organizations-directory-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Организации</a>
-                    <a href="{{ route('goods.categories') }}"
+                    <a href="{{ route('goods.categories-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Категории товаров</a>
-                    <a href="{{ route('directory.services') }}"
+                    <a href="{{ route('directory.services-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Услуги</a>
-                    <a href="{{ route('directory.payment-types') }}"
+                    <a href="{{ route('directory.payment-types-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Типы платежей</a>
-                    <a href="{{ route('directory.employee-types') }}"
+                    <a href="{{ route('directory.employee-types-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Типы сотрудников</a>
-                    <a href="{{ route('directory.equipment-groups') }}"
+                    <a href="{{ route('directory.equipment-groups-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Группы оборудования</a>
-                    <a href="{{ route('directory.positions') }}"
+                    <a href="{{ route('directory.positions-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Должности</a>
-                    <a href="{{ route('directory.suppliers') }}"
+                    <a href="{{ route('directory.suppliers-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Поставщики</a>
-                    <a href="{{ route('directory.writeoff-reasons') }}"
+                    <a href="{{ route('directory.writeoff-reasons-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Причины списания</a>
-                    <a href="{{ route('directory.manufacturers') }}"
+                    <a href="{{ route('directory.manufacturers-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Производители</a>
-                    <a href="{{ route('directory.legal-entities') }}"
+                    <a href="{{ route('directory.legal-entities-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Юридические лица</a>
-                    <a href="{{ route('directory.persons') }}"
+                    <a href="{{ route('directory.persons-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Физические лица</a>
                 </div>
             </div>
-            <a href="/admin/users/index"
+            <a href="/admin-users" 
                 class="flex-1 min-w-[210px] w-full text-white font-semibold px-7 py-3 rounded text-lg shadow-md text-center"
                 style="background-color:#337AB7;"
                 onmouseover="this.style.backgroundColor='#23527c';"
                 onmouseout="this.style.backgroundColor='#337AB7';"
-            >Настройки</a>
-            <a href="{{ route('admin.access') }}"
+            > Настройки</a>
+            <a href="#" 
             class="flex-1 min-w-[210px] w-full bg-[#5DB75D] text-white font-semibold px-7 py-3 rounded text-lg shadow-md text-center">
-                Администрирование
+                Личный кабинет
             </a>
         </div>
 
-        <div class="mb-6 flex gap-4 flex-wrap w-full items-center">
+        <!-- Скрипты меню -->
+        <script>
+            // Журналы
+            function toggleDropdown() {
+                const d = document.getElementById('filters-dropdown');
+                d.classList.toggle('hidden');
+            }
+            // Справочники
+            function toggleDropdownRefs() {
+                const d = document.getElementById('refs-dropdown');
+                d.classList.toggle('hidden');
+            }
+            // Закрывать оба меню при клике вне
+            document.addEventListener('click', function(e) {
+                // Journals
+                const btn = document.getElementById('filters-btn');
+                const dropdown = document.getElementById('filters-dropdown');
+                if (btn && dropdown && !btn.contains(e.target) && !dropdown.contains(e.target)) {
+                    dropdown.classList.add('hidden');
+                }
+                // Refs
+                const btn2 = document.getElementById('refs-btn');
+                const dropdown2 = document.getElementById('refs-dropdown');
+                if (btn2 && dropdown2 && !btn2.contains(e.target) && !dropdown2.contains(e.target)) {
+                    dropdown2.classList.add('hidden');
+                }
+            });
+        </script>
+
+        <!-- Блок с тремя кнопками — над фильтрами -->
+        <div class="flex gap-3 mb-2">
             <button
-                type="button"
-                class="flex-1 min-w-[210px] w-full text-white font-semibold px-5 py-2.5 rounded text-lg shadow-md transition text-center"
-                style="background-color:#337AB7;"
-                onmouseover="this.style.backgroundColor='#23527c';"
-                onmouseout="this.style.backgroundColor='#337AB7';"
-                @click="showClientCard = true"
+                class="bg-[#337AB7] hover:bg-blue-800 text-white font-semibold px-4 py-1 rounded text-[14px] shadow-sm"
+                @click="showAddEquipment = true"
             >
-                Выписанные документы
+                ДОБАВИТЬ ОБОРУДОВАНИЕ
             </button>
-            <a href="{{ route('equipment.admin-index') }}"
-                class="flex-1 min-w-[210px] w-full text-white font-semibold px-4 py-3 rounded text-base shadow-md transition text-center whitespace-nowrap"
-                style="background-color:#337AB7;font-size:17px;"
-                onmouseover="this.style.backgroundColor='#23527c';"
-                onmouseout="this.style.backgroundColor='#337AB7';"
-            >
-                Справочник оборудования
-            </a>
-            <button
-                class="flex-1 min-w-[210px] w-full text-white font-semibold px-5 py-2.5 rounded text-lg shadow-md transition text-center"
-                style="background-color:#337AB7;"
-                onmouseover="this.style.backgroundColor='#23527c';"
-                onmouseout="this.style.backgroundColor='#337AB7';"
-                @click="showProkat = true"
-                type="button"
-            >
-                Новый прокат
-            </button>
-            <a href="{{ route('cashbox-admin') }}"
-                class="flex-1 min-w-[210px] w-full text-white font-semibold px-5 py-2.5 rounded text-lg shadow-md transition text-center"
-                style="background-color:#337AB7;"
-                onmouseover="this.style.backgroundColor='#23527c';"
-                onmouseout="this.style.backgroundColor='#337AB7';"
-            >Касса сегодня</a>
-            <button
-                class="flex-1 min-w-[210px] w-full text-white font-semibold px-5 py-2.5 rounded text-lg shadow-md transition text-center"
-                style="background-color:#337AB7;"
-                onmouseover="this.style.backgroundColor='#23527c';"
-                onmouseout="this.style.backgroundColor='#337AB7';"
-                @click="showFilters = true"
-            >
-                Фильтры
-            </button>
+            <button class="bg-[#337AB7] hover:bg-blue-800 text-white font-semibold px-4 py-1 rounded text-[14px] shadow-sm">НАСТРОЙКА ВЫШКИ-ТУРЫ</button>
+            <button class="bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-1 rounded text-[14px] shadow-sm">ЭКСПОРТ CSV</button>
         </div>
 
-        <!-- ЕДИНИЦЫ ИЗМЕРЕНИЯ -->
-        <div class="mt-6 flex flex-col items-start">
-            <div class="flex items-center gap-4 mb-2">
-                <div class="text-xl font-semibold">Единицы измерения</div>
-                <button onclick="openUnitModal()"
-                    class="bg-[#337AB7] hover:bg-[#23527c] text-white font-semibold px-5 py-2 rounded text-base">
-                    ДОБАВИТЬ ЗАПИСЬ
-                </button>
-            </div>
-            <div class="overflow-auto mb-6 bg-white rounded-lg shadow border border-gray-200 px-4 py-3 w-auto">
-                <table class="min-w-[570px] text-sm border border-gray-300">
-                    <thead class="bg-blue-50 text-xs uppercase">
-                        <tr>
-                            <th class="p-2 border border-gray-300 text-center">№ п.п.</th>
-                            <th class="p-2 border border-gray-300 text-center">Наименование</th>
-                            <th class="p-2 border border-gray-300 text-center">Код ОКЕИ</th>
-                            <th class="p-2 border border-gray-300 text-center">Комментарий</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="p-2 border border-gray-300 text-center">1</td>
-                            <td class="p-2 border border-gray-300 text-center">Килограмм</td>
-                            <td class="p-2 border border-gray-300 text-center">166</td>
-                            <td class="p-2 border border-gray-300 text-center"></td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-300 text-center">2</td>
-                            <td class="p-2 border border-gray-300 text-center">Литр</td>
-                            <td class="p-2 border border-gray-300 text-center">112</td>
-                            <td class="p-2 border border-gray-300 text-center"></td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-300 text-center">3</td>
-                            <td class="p-2 border border-gray-300 text-center">Метр</td>
-                            <td class="p-2 border border-gray-300 text-center">006</td>
-                            <td class="p-2 border border-gray-300 text-center"></td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-300 text-center">4</td>
-                            <td class="p-2 border border-gray-300 text-center">Миллиметр</td>
-                            <td class="p-2 border border-gray-300 text-center">003</td>
-                            <td class="p-2 border border-gray-300 text-center"></td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-300 text-center">5</td>
-                            <td class="p-2 border border-gray-300 text-center">Набор</td>
-                            <td class="p-2 border border-gray-300 text-center">704</td>
-                            <td class="p-2 border border-gray-300 text-center"></td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-300 text-center">6</td>
-                            <td class="p-2 border border-gray-300 text-center">Услуга</td>
-                            <td class="p-2 border border-gray-300 text-center">Услуга</td>
-                            <td class="p-2 border border-gray-300 text-center">Услуга</td>
-                        </tr>
-                        <tr>
-                            <td class="p-2 border border-gray-300 text-center">7</td>
-                            <td class="p-2 border border-gray-300 text-center">Штука</td>
-                            <td class="p-2 border border-gray-300 text-center">796</td>
-                            <td class="p-2 border border-gray-300 text-center"></td>
-                        </tr>
-                        <!-- Еще строки по желанию -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- МОДАЛКА создания единицы измерения -->
-        <div id="unit-modal" class="fixed z-50 inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden">
-            <div class="bg-white rounded-xl shadow-2xl flex flex-col overflow-visible border border-gray-300 relative"
-                style="width: 800px; max-width: 95vw;">
-                <div class="flex justify-between items-center bg-sky-700 text-white px-4 py-2 rounded-t-xl mb-4">
-                    <span class="font-semibold text-lg">Добавление единицы измерения</span>
-                    <button onclick="closeUnitModal()" class="text-white text-2xl font-bold leading-none">&times;</button>
+        <!-- Фильтры - максимально приближенно к оригиналу -->
+        <div class="bg-white border rounded mb-6 px-3 py-2 text-[13px]">
+            <div class="flex items-center gap-8 w-full">
+                <!-- Левая часть фильтра -->
+                <div class="flex flex-col gap-2 flex-1 min-w-[430px]">
+                    <div class="flex gap-2 w-full">
+                        <div class="flex-1 min-w-[170px]">
+                            <label class="block mb-1 text-[12px]">Создан</label>
+                            <div class="flex gap-1">
+                                <input type="date" class="border rounded px-2 py-1 w-full h-[28px] text-[13px]" placeholder="">
+                                <input type="date" class="border rounded px-2 py-1 w-full h-[28px] text-[13px]" placeholder="">
+                            </div>
+                        </div>
+                        <div class="flex-1 min-w-[180px]">
+                            <label class="block mb-1 text-[12px]">Организация:</label>
+                            <select class="border rounded px-2 py-1 w-full h-[28px] text-[13px]">
+                                <option>Не выбрано</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 w-full">
+                        <div class="flex-1 min-w-[180px]">
+                            <label class="block mb-1 text-[12px]">Филиал:</label>
+                            <select class="border rounded px-2 py-1 w-full h-[28px] text-[13px]">
+                                <option>Выберите элементы</option>
+                            </select>
+                        </div>
+                        <div class="flex-1 min-w-[180px]">
+                            <label class="block mb-1 text-[12px]">Тип оборудования:</label>
+                            <select class="border rounded px-2 py-1 w-full h-[28px] text-[13px]">
+                                <option>Выберите элементы</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 w-full">
+                        <div class="flex-1 min-w-[180px]">
+                            <label class="block mb-1 text-[12px]">Наименование</label>
+                            <input type="text" class="border rounded px-2 py-1 w-full h-[28px] text-[13px]" placeholder="">
+                        </div>
+                        <div class="flex-1 min-w-[140px]">
+                            <label class="block mb-1 text-[12px]">Артикул</label>
+                            <input type="text" class="border rounded px-2 py-1 w-full h-[28px] text-[13px]" placeholder="">
+                        </div>
+                    </div>
                 </div>
-                <!-- Форма -->
-                <form class="px-6 pt-5 pb-4">
-                    <div class="flex flex-col gap-3">
-                        <div class="flex items-center gap-3">
-                            <label class="block text-base w-[120px]">Наименование:</label>
-                            <input type="text" class="border rounded w-full px-3 py-2 text-base" placeholder="">
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <label class="block text-base w-[120px]">Сокращенное:</label>
-                            <input type="text" class="border rounded w-full px-3 py-2 text-base" placeholder="">
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <label class="block text-base w-[120px]">Код ОКЕИ:</label>
-                            <input type="text" class="border rounded w-full px-3 py-2 text-base" placeholder="">
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <label class="block text-base w-[120px]">Комментарий:</label>
-                            <input type="text" class="border rounded w-full px-3 py-2 text-base" placeholder="">
-                        </div>
+                <!-- Чекбоксы и кнопки справа, занимают свою ширину -->
+                <div class="flex gap-8 flex-shrink-0 items-start">
+                    <div class="grid grid-cols-2 gap-x-5 gap-y-0 mt-1">
+                        <label class="text-[13px] flex items-center"><input type="checkbox" class="mr-1 w-[13px] h-[13px]">Свободно</label>
+                        <label class="text-[13px] flex items-center"><input type="checkbox" class="mr-1 w-[13px] h-[13px]">Продано</label>
+                        <label class="text-[13px] flex items-center"><input type="checkbox" class="mr-1 w-[13px] h-[13px]">В прокате</label>
+                        <label class="text-[13px] flex items-center"><input type="checkbox" class="mr-1 w-[13px] h-[13px]">Списано</label>
+                        <label class="text-[13px] flex items-center"><input type="checkbox" class="mr-1 w-[13px] h-[13px]">В ремонте</label>
+                        <label class="text-[13px] flex items-center"><input type="checkbox" class="mr-1 w-[13px] h-[13px]">На продаже</label>
+                        <label class="text-[13px] flex items-center"><input type="checkbox" class="mr-1 w-[13px] h-[13px]">На ТО</label>
+                        <label class="text-[13px] flex items-center"><input type="checkbox" class="mr-1 w-[13px] h-[13px]">Готово</label>
+                        <label class="text-[13px] flex items-center col-span-2"><input type="checkbox" class="mr-1 w-[13px] h-[13px]">Скрыть нулевые позиции</label>
                     </div>
-                    <div class="flex justify-end gap-3 pt-6">
-                        <button type="submit" class="bg-[#337AB7] text-white px-6 py-2 rounded text-base font-semibold flex items-center gap-2">
-                            <i class="bi bi-save"></i> СОХРАНИТЬ
-                        </button>
-                        <button type="button" onclick="closeUnitModal()" class="bg-red-500 text-white px-6 py-2 rounded text-base font-semibold">ОТМЕНА</button>
+                    <div class="flex flex-col gap-2 mt-1">
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-1 rounded text-[13px]">ФИЛЬТР</button>
+                        <button class="bg-red-500 hover:bg-red-600 text-white px-5 py-1 rounded text-[13px]">СБРОСИТЬ</button>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
-            @section('modals')
+
+        <!-- Таблица -->
+        <div class="overflow-auto bg-white shadow rounded">
+            <table class="w-full text-xs">
+                <thead class="bg-blue-50 text-xs uppercase">
+                    <tr>
+                        <!-- Картинка -->
+                        <th class="p-2 text-center"></th>
+                        <th class="p-2 text-center">№ п.п.</th>
+                        <th class="p-2 text-center">Офис</th>
+                        <th class="p-2 text-center">Арт.</th>
+                        <th class="p-2 text-center">Наименование</th>
+                        <th class="p-2 text-center">Ведомость</th>
+                        <th class="p-2 text-center">Текущее состояние</th>
+                        <th class="p-2 text-center">Прокат</th>
+                        <th class="p-2 text-center">Залог</th>
+                        <th class="p-2 text-center">ТО</th>
+                        <th class="p-2 text-center">Простой</th>
+                        <th class="p-2 text-center">Цена рыночная</th>
+                        <th class="p-2 text-center">Цена покупки</th>
+                        <th class="p-2 text-center">Цена продажи</th>
+                        <th class="p-2 text-center">Дата покупки</th>
+                        <th class="p-2 text-center">Всего</th>
+                        <th class="p-2 text-center">в прокате</th>
+                        <th class="p-2 text-center"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <!-- Картинка круглая 32x32 -->
+                        <td class="p-2 text-center">
+                            <img src="https://prokat69.maxpro-crm.ru//img/pictures/users/_2024_10_28_10_14_09.jpg" 
+                                alt="" 
+                                class="rounded-full w-8 h-8 object-cover mx-auto border border-gray-300" />
+                        </td>
+                        <td class="p-2 text-center">1</td>
+                        <td class="p-2 text-center">Светлая 42</td>
+                        <td class="p-2 text-center">5735</td>
+                        <td class="p-2 text-blue-700 font-semibold text-center">Дрель алмазного бурения DEKO DDM-1600</td>
+                        <td class="p-2 text-center">
+                            <input type="checkbox" class="w-[15px] h-[15px] align-middle" />
+                        </td>
+                        <td class="p-2 text-center">
+                            <span class="bg-green-200 text-green-800 px-2 py-1 rounded">свободно</span>
+                        </td>
+                        <td class="p-2 text-center">1250</td>
+                        <td class="p-2 text-center">10000</td>
+                        <td class="p-2 text-center"></td>
+                        <td class="p-2 text-center">115 дн.</td>
+                        <td class="p-2 text-center">10000</td>
+                        <td class="p-2 text-center">10000</td>
+                        <td class="p-2 text-center">10000</td>
+                        <td class="p-2 text-center">13.09.2024</td>
+                        <td class="p-2 text-center">1</td>
+                        <td class="p-2 text-center">нет</td>
+                        <td class="p-2 text-center"><i class="bi bi-list"></i></td>
+                    </tr>
+                    <tr>
+                        <!-- Картинка круглая 32x32 -->
+                        <td class="p-2 text-center">
+                            <img src="/images/your-icon.png" 
+                                alt="" 
+                                class="rounded-full w-8 h-8 object-cover mx-auto border border-gray-300" />
+                        </td>
+                        <td class="p-2 text-center">1</td>
+                        <td class="p-2 text-center">Светлая 42</td>
+                        <td class="p-2 text-center">5735</td>
+                        <td class="p-2 text-blue-700 font-semibold text-center">Дрель алмазного бурения DEKO DDM-1600</td>
+                        <td class="p-2 text-center">
+                            <input type="checkbox" class="w-[15px] h-[15px] align-middle" />
+                        </td>
+                        <td class="p-2 text-center">
+                            <span class="bg-green-200 text-green-800 px-2 py-1 rounded">свободно</span>
+                        </td>
+                        <td class="p-2 text-center">1250</td>
+                        <td class="p-2 text-center">10000</td>
+                        <td class="p-2 text-center"></td>
+                        <td class="p-2 text-center">115 дн.</td>
+                        <td class="p-2 text-center">10000</td>
+                        <td class="p-2 text-center">10000</td>
+                        <td class="p-2 text-center">10000</td>
+                        <td class="p-2 text-center">13.09.2024</td>
+                        <td class="p-2 text-center">1</td>
+                        <td class="p-2 text-center">нет</td>
+                        <td class="p-2 text-center"><i class="bi bi-list"></i></td>
+                    </tr>
+                    <!-- Ещё строки по аналогии -->
+                </tbody>
+            </table>
+        </div>
+        <template x-teleport="body">
+            <div
+                x-show="showAddEquipment"
+                x-cloak
+                @click.outside="showAddEquipment = false"
+                class="fixed inset-0 z-[99999] flex items-center justify-center bg-black bg-opacity-30"
+            >
+                <div 
+                    class="bg-white rounded-xl shadow-2xl w-full max-w-[820px] flex flex-col overflow-visible my-6"
+                    x-data="{ tab: 'tech' }"
+                >
+                    <!-- Заголовок -->
+                    <div class="flex justify-between items-center bg-sky-700 text-white px-5 py-3 rounded-t-xl">
+                        <div class="font-semibold text-lg">Добавление нового оборудования</div>
+                        <button class="text-white text-2xl" @click="showAddEquipment = false">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </div>
+                    <!-- Вкладки -->
+                    <div class="flex gap-1 px-5 pt-3 pb-1 bg-white border-b">
+                        <button 
+                            :class="tab === 'tech' ? 'bg-[#337AB7] text-white' : 'bg-[#91AEC8] text-white'" 
+                            class="px-3 py-1 rounded-t text-[13px] font-semibold" 
+                            @click="tab = 'tech'">
+                            Технические характеристики
+                        </button>
+                        <button 
+                            :class="tab === 'service' ? 'bg-[#337AB7] text-white' : 'bg-[#91AEC8] text-white'"
+                            class="px-3 py-1 rounded-t text-[13px] font-semibold" 
+                            @click="tab = 'service'">
+                            Техническое обслуживание
+                        </button>
+                        <button 
+                            :class="tab === 'finance' ? 'bg-[#337AB7] text-white' : 'bg-[#91AEC8] text-white'"
+                            class="px-3 py-1 rounded-t text-[13px] font-semibold" 
+                            @click="tab = 'finance'">
+                            Финансовая часть
+                        </button>
+                        <button 
+                            :class="tab === 'complect' ? 'bg-[#337AB7] text-white' : 'bg-[#91AEC8] text-white'"
+                            class="px-3 py-1 rounded-t text-[13px] font-semibold" 
+                            @click="tab = 'complect'">
+                            Комплектация
+                        </button>
+                    </div>
+
+                    <form class="px-5 pt-4 pb-6">
+                        <!-- Технические характеристики -->
+                        <div x-show="tab === 'tech'" x-transition>
+                            <div class="grid grid-cols-2 gap-x-6 gap-y-2 text-[15px]">
+                                <!-- Здесь твоя основная форма (как раньше) -->
+                                <div>
+                                    <label class="text-red-500">*</label>
+                                    <label>Категория</label>
+                                    <select class="w-full border rounded px-2 py-1 text-[15px]"><option>Не выбрано</option></select>
+                                </div>
+                                <div>
+                                    <label>Артикул</label>
+                                    <input type="text" class="w-full border rounded px-2 py-1 text-[15px]" placeholder="Если не указан, то присвоится внутренний номер" />
+                                </div>
+                                <div>
+                                    <label class="text-red-500">*</label>
+                                    <label>Наименование</label>
+                                    <input type="text" class="w-full border rounded px-2 py-1 text-[15px]" />
+                                </div>
+                                <div>
+                                    <label class="text-red-500">*</label>
+                                    <label>Дата приобретения</label>
+                                    <input type="date" class="w-full border rounded px-2 py-1 text-[15px]" />
+                                </div>
+                                <div>
+                                    <label>Бренд</label>
+                                    <select class="w-full border rounded px-2 py-1 text-[15px]"><option>Не выбрано</option></select>
+                                </div>
+                                <div>
+                                    <label>Модель</label>
+                                    <input type="text" class="w-full border rounded px-2 py-1 text-[15px]" />
+                                </div>
+                                <div>
+                                    <label>Серийный номер</label>
+                                    <input type="text" class="w-full border rounded px-2 py-1 text-[15px]" />
+                                </div>
+                                <div>
+                                    <label>Офис</label>
+                                    <select class="w-full border rounded px-2 py-1 text-[15px]"><option>Не выбрано</option></select>
+                                </div>
+                                <div>
+                                    <label>Количество</label>
+                                    <input type="number" class="w-full border rounded px-2 py-1 text-[15px]" value="1" />
+                                </div>
+                                <div>
+                                    <label>Ед. измерения</label>
+                                    <select class="w-full border rounded px-2 py-1 text-[15px]"><option>Не выбрано</option></select>
+                                </div>
+                                <div>
+                                    <label>№ полки</label>
+                                    <input type="text" class="w-full border rounded px-2 py-1 text-[15px]" />
+                                </div>
+                                <div>
+                                    <label>Комментарий</label>
+                                    <input type="text" class="w-full border rounded px-2 py-1 text-[15px]" />
+                                </div>
+                                <div class="col-span-2 flex items-center mt-2">
+                                    <label class="flex items-center gap-2 cursor-pointer select-none">
+                                        <span class="block text-sm w-[140px]">Почасовой прокат</span>
+                                        <span class="relative">
+                                            <input type="checkbox" class="peer sr-only" checked>
+                                            <span class="block w-11 h-6 bg-gray-200 rounded-full transition-colors duration-200 peer-checked:bg-[#337AB7]"></span>
+                                            <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-5"></span>
+                                        </span>
+                                    </label>
+                                    <!-- <input type="checkbox" class="mr-2" id="hourly" />
+                                    <label for="hourly">Почасовой прокат</label> -->
+                                </div>
+                            </div>
+                            <!-- <div class="flex justify-end mt-6 gap-2">
+                                <button type="button" class="bg-green-600 text-white px-6 py-1 rounded font-bold text-base" @click="showAddEquipment = false">СОХРАНИТЬ</button>
+                                <button type="button" class="bg-red-500 text-white px-6 py-1 rounded font-bold text-base" @click="showAddEquipment = false">ОТМЕНА</button>
+                            </div> -->
+                        </div>
+                        <!-- Техническое обслуживание -->
+                        <div x-show="tab === 'service'" x-transition>
+                            <div class="grid grid-cols-2 gap-x-6 gap-y-2 text-[15px]">
+                                <div>
+                                    <label>ТО1</label>
+                                    <select class="w-full border rounded px-2 py-1 text-[15px]"><option>Не выбрано</option></select>
+                                </div>
+                                <div>
+                                    <label>Выработка, дней</label>
+                                    <input type="number" class="w-full border rounded px-2 py-1 text-[15px]" value="0">
+                                </div>
+                                <div>
+                                    <label>ТО2</label>
+                                    <select class="w-full border rounded px-2 py-1 text-[15px]"><option>Не выбрано</option></select>
+                                </div>
+                                <div>
+                                    <label>Выработка, дней</label>
+                                    <input type="number" class="w-full border rounded px-2 py-1 text-[15px]" value="0">
+                                </div>
+                                <div class="col-span-2 flex items-center mt-2">
+                                    <input type="checkbox" class="mr-2" id="in_repair" />
+                                    <label for="in_repair">В ремонте</label>
+                                </div>
+                                <div class="col-span-2 flex items-center">
+                                    <input type="checkbox" class="mr-2" id="with_mh" />
+                                    <label for="with_mh">Учитывать м/ч</label>
+                                </div>
+                                <div>
+                                    <label>Моточасы, всего</label>
+                                    <input type="number" class="w-full border rounded px-2 py-1 text-[15px]" value="0">
+                                </div>
+                                <div>
+                                    <label>Моточасы, тек</label>
+                                    <input type="number" class="w-full border rounded px-2 py-1 text-[15px]" value="0">
+                                </div>
+                            </div>
+                            <!-- <div class="flex justify-end mt-6 gap-2">
+                                <button type="button" class="bg-green-600 text-white px-6 py-1 rounded font-bold text-base" @click="showAddEquipment = false">СОХРАНИТЬ</button>
+                                <button type="button" class="bg-red-500 text-white px-6 py-1 rounded font-bold text-base" @click="showAddEquipment = false">ОТМЕНА</button>
+                            </div> -->
+                        </div>
+                        <!-- Финансовая часть -->
+                        <div x-show="tab === 'finance'" x-transition>
+                            <div class="grid grid-cols-1 gap-x-6 gap-y-2 text-[15px]">
+                                <div>
+                                    <label class="text-red-500">*</label>
+                                    <label>Стоимость приобретения</label>
+                                    <input type="number" class="w-full border rounded px-2 py-1 text-[15px]" value="0" />
+                                </div>
+                                <div>
+                                    <label class="text-red-500">*</label>
+                                    <label>Рыночная стоимость</label>
+                                    <input type="number" class="w-full border rounded px-2 py-1 text-[15px]" value="0" />
+                                </div>
+                                <div>
+                                    <label>Цена продажи</label>
+                                    <input type="number" class="w-full border rounded px-2 py-1 text-[15px]" value="0" />
+                                </div>
+                                <div>
+                                    <label>Залоговая стоимость</label>
+                                    <input type="number" class="w-full border rounded px-2 py-1 text-[15px]" value="0" />
+                                </div>
+                                <div>
+                                    <label>Цена проката</label>
+                                    <input type="number" class="w-full border rounded px-2 py-1 text-[15px]" value="0" />
+                                </div>
+                                <div>
+                                    <label>Цена проката в час</label>
+                                    <input type="number" class="w-full border rounded px-2 py-1 text-[15px]" value="0" />
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Комплектация -->
+                        <!-- Комплектация -->
+                        <div x-show="tab === 'complect'" x-transition>
+                            <div class="flex gap-3 items-center text-[15px]">
+                                <label>Наименование</label>
+                                <input type="text" class="border rounded px-2 py-1 text-[15px]" style="min-width:140px;" />
+                                <label>Ед. изм.</label>
+                                <select class="border rounded px-2 py-1 text-[14px] min-w-[95px] pr-7 mr-1 flex-shrink-0">
+                                    <option>Не выбрано</option>
+                                </select>
+                                <label>Количество</label>
+                                <input type="number" class="border rounded px-2 py-1 text-[15px]" value="0" style="max-width:60px;" />
+                                <button type="button" class="bg-blue-600 text-white px-3 py-1 rounded ml-1">Добавить</button>
+                            </div>
+                        </div>
+
+                        <!-- Кнопки OK/Отмена — снизу, для всех вкладок -->
+                        <div class="flex justify-end mt-6 gap-2">
+                            <button type="button" class="bg-green-600 text-white px-6 py-1 rounded font-bold text-base" @click="showAddEquipment = false"><i class="bi bi-save"></i> СОХРАНИТЬ</button>
+                            <button type="button" class="bg-red-500 text-white px-6 py-1 rounded font-bold text-base" @click="showAddEquipment = false">ОТМЕНА</button>
+                        </div>
+                        <!-- Остальные вкладки можно оформить по тому же принципу -->
+                    </form>
+                </div>
+            </div>
+        </template>
+        @section('modals')
     <template x-teleport="body">
     <div
         x-show="showFilters"
@@ -693,18 +928,8 @@
     </template>
 
     @endsection
-
-        <!-- JS для открытия/закрытия модалки -->
-        <script>
-            function openUnitModal() {
-                document.getElementById('unit-modal').classList.remove('hidden');
-            }
-            function closeUnitModal() {
-                document.getElementById('unit-modal').classList.add('hidden');
-            }
-        </script>
     </main>
-    <script>
+        <script>
     document.getElementById('logout-btn')?.addEventListener('click', async function() {
         // Если у тебя есть /api/logout, можно вызвать, если нет — просто очищай localStorage
         const token = localStorage.getItem('token');
@@ -749,10 +974,10 @@
             return;
         }
 
-        // 3. Доступен только для role == 'superadmin'
-        if (user.role !== 'superadmin') {
-            if (user.role === 'manager') {
-                window.location.href = '/dashboard-manager';
+        // 3. Доступен только для role == 'manager'
+        if (user.role !== 'manager') {
+            if (user.role === 'superadmin') {
+                window.location.href = '/dashboard-superadmin';
             } else if (user.role === 'employee') {
                 window.location.href = '/dashboard';
             } else {
@@ -760,23 +985,25 @@
             }
             return;
         }
-        // Всё ок — супер-админ на своей странице
+        // Всё ок — менеджер на своей странице
     })();
     </script>
 
     <script>
-    // 1. Скрываем main сразу после загрузки DOM
+    // Скрываем main после загрузки DOM
     document.addEventListener('DOMContentLoaded', () => {
         document.querySelector('main')?.style.setProperty('display', 'none');
     });
 
     (async function() {
+        // 1. Проверка токена
         const token = localStorage.getItem('token');
         if (!token) {
             window.location.href = '/login';
             return;
         }
 
+        // 2. Получаем пользователя
         let user;
         try {
             const res = await fetch('/api/me', {
@@ -790,10 +1017,10 @@
             return;
         }
 
-        // Проверка роли (подстрой под нужные условия!)
-        if (user.role !== 'superadmin') {
-            if (user.role === 'manager') {
-                window.location.href = '/dashboard-manager';
+        // 3. Только для manager!
+        if (user.role !== 'manager') {
+            if (user.role === 'superadmin') {
+                window.location.href = '/dashboard-superadmin';
             } else if (user.role === 'employee') {
                 window.location.href = '/dashboard';
             } else {
@@ -802,9 +1029,10 @@
             return;
         }
 
-        // Всё ок, показываем main и убираем прелоадер
+        // Всё ок — показываем main и убираем прелоадер
         document.querySelector('main').style.display = '';
         document.getElementById('preload')?.remove();
     })();
     </script>
+
 </x-app-layout>

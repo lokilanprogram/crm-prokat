@@ -2,37 +2,37 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Tymon\JWTAuth\Contracts\JWTSubject; // добавь это
 
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject // добавь implements JWTSubject
 {
-
-    // app/Models/User.php
-    public function isSuperAdmin() { return $this->role === 'superadmin'; }
-    public function isManager() { return $this->role === 'manager'; }
-    public function isEmployee() { return $this->role === 'employee'; }
-    
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+
+    // Проверки ролей
+    public function isSuperAdmin() { return $this->role === 'superadmin'; }
+    public function isManager()    { return $this->role === 'manager'; }
+    public function isEmployee()   { return $this->role === 'employee'; }
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $fillable = [
         'name',
         'email',
+        'login',
         'password',
+        'role',
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var list<string>
+     * @var array<int, string>
      */
     protected $hidden = [
         'password',
@@ -40,9 +40,9 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
-     * @return array<string, string>
+     * @var array<string, string>
      */
     protected function casts(): array
     {
@@ -50,5 +50,16 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Вот эти два метода нужны для JWT!
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
     }
 }

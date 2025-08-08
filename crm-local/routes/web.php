@@ -2,15 +2,21 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+
+Route::get('/dashboard-superadmin', fn() => view('dashboard-superadmin'))->name('dashboard-superadmin');
+Route::get('/dashboard-manager', fn() => view('dashboard-manager'))->name('dashboard-manager');
+Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 // Снимаем auth/verified с dashboard, чтобы страница открывалась всегда
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
 
 
 Route::get('/cashbox', function() {
@@ -25,10 +31,13 @@ Route::get('/equipment', function () {
     return view('equipment.index');
 })->name('equipment');
 
+Route::get('/equipment.manager-index', function () {
+    return view('equipment.manager-index');
+})->name('equipment.manager-index');
 
-Route::get('/dashboard-superadmin', function () {
-    return view('dashboard-superadmin');
-})->name('dashboard-superadmin');
+// Route::get('/dashboard-superadmin', function () {
+//     return view('dashboard-superadmin');
+// })->name('dashboard-superadmin');
 
 
 Route::get('/admin/access', function () {
@@ -240,9 +249,9 @@ Route::get('/directory/persons-manager', function () {
     return view('directory.persons-manager');
 })->name('directory.persons-manager');
 
-Route::get('/dashboard-manager', function () {
-    return view('dashboard-manager');
-})->name('dashboard-manager');
+// Route::get('/dashboard-manager', function () {
+//     return view('dashboard-manager');
+// })->name('dashboard-manager');
 
 
 Route::get('equipment/admin-index', function () {
@@ -264,12 +273,26 @@ Route::get('equipment.writeoff-manager', function () {
 })->name('equipment.writeoff-manager');
 
 
+Route::get('/login', function () {
+    return view('login');
+}); 
 
-Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('login', [LoginController::class, 'login']);
-Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('register', [RegisterController::class, 'register']);
-Route::post('logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/forgot-password', function () {
+    return view('forgot-password');
+});
+
+
+// Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
+// Route::get('/dashboard-superadmin', fn() => view('dashboard-superadmin'))->name('dashboard-superadmin');
+// Route::get('/dashboard-manager', fn() => view('dashboard-manager'))->name('dashboard-manager');
+
+
+// Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');
+// Route::post('login', [LoginController::class, 'login']);
+// Route::get('register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+// Route::post('register', [RegisterController::class, 'register']);
+Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -284,4 +307,4 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+// require __DIR__.'/auth.php';

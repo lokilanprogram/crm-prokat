@@ -5,6 +5,15 @@
         </h2>
     </x-slot>
 
+    <div id="preload" style="
+        position:fixed;inset:0;z-index:999999;display:flex;
+        align-items:center;justify-content:center;
+        background:#f4f6fb;">
+    <span style="font-size:22px;color:#888;">
+        Загрузка...
+    </span>
+    </div>
+
     <main class="w-full px-2 sm:px-4 py-6 min-h-screen">
         <!-- Панель пользователя + метрики -->
             <div class="bg-gray-200 rounded-xl p-4 mb-6 flex items-center justify-between">
@@ -14,12 +23,11 @@
                         <div class="w-20 h-20 bg-black rounded-full"></div>
                         <div>
                             <div class="font-semibold text-xl">Бабинский Дмитрий</div>
-                            <div class="text-base text-gray-700">Филиал: Светлая 42</div>                        <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="flex items-center gap-2 text-base text-gray-700 hover:text-red-600 mt-2">
-                                    <i class="bi bi-box-arrow-right text-xl"></i> Выйти
-                                </button>
-                            </form>
+                            <div class="text-base text-gray-700">Филиал: Светлая 42</div>
+                            <button id="logout-btn" class="flex items-center gap-2 text-base text-gray-700 hover:text-red-600 mt-2">
+                                <i class="bi bi-box-arrow-right text-xl"></i>
+                                Выйти
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -98,6 +106,8 @@
                 </button>
                 <div id="refs-dropdown"
                     class="hidden absolute z-20 mt-2 w-[230px] bg-white border border-gray-200 rounded shadow-lg left-0">
+                    <a href="{{ route('equipment.manager-index') }}"
+                        class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Справочник оборудования</a>
                     <a href="{{ route('discounts.index-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Скидки</a>
                     <a href="{{ route('units-directory-manager') }}"
@@ -171,6 +181,19 @@
             });
         </script>
 
+        <!-- Заголовок -->
+        <div class="mb-6">
+            <span class="text-xl font-semibold">Справочник Организации</span>
+        </div>
+
+        <!-- Кнопка -->
+        <div class="mb-3">
+            <button class="bg-[#337AB7] text-white text-sm px-3 py-1.5 rounded shadow hover:bg-[#23527c] transition">
+                НОВАЯ ОРГАНИЗАЦИЯ
+            </button>
+        </div>
+
+
         <!-- Таблица организаций -->
         <div class="bg-white rounded-lg shadow border border-gray-200 p-4">
             <table class="w-full text-[13px] table-fixed border">
@@ -199,10 +222,10 @@
                         </td>
                         <td class="p-2 border text-center">
                             <div class="flex flex-row justify-center gap-1">
-                                <button onclick="openContractModal()" class="flex items-center bg-[#337AB7] hover:bg-[#23527c] text-white text-[12px] px-1.5 py-0.5 rounded transition whitespace-nowrap">
+                                <button class="flex items-center bg-[#337AB7] hover:bg-[#23527c] text-white text-[12px] px-1.5 py-0.5 rounded transition whitespace-nowrap">
                                     <i class="bi bi-pencil-fill mr-1 text-sm"></i> РЕДАКТИРОВАНИЕ
                                 </button>
-                                <button class="flex items-center bg-red-500 hover:bg-red-600 text-white text-[12px] px-1.5 py-0.5 rounded transition whitespace-nowrap">
+                                <button onclick="openContractModal()" class="flex items-center bg-red-500 hover:bg-red-600 text-white text-[12px] px-1.5 py-0.5 rounded transition whitespace-nowrap">
                                     <i class="bi bi-file-earmark-text-fill mr-1 text-sm"></i> ПУНКТЫ ДОГОВОРА
                                 </button>
                             </div>
@@ -220,10 +243,10 @@
                         </td>
                         <td class="p-2 border text-center">
                             <div class="flex flex-row justify-center gap-1">
-                                <button onclick="openContractModal()" class="flex items-center bg-[#337AB7] hover:bg-[#23527c] text-white text-[12px] px-1.5 py-0.5 rounded transition whitespace-nowrap">
+                                <button class="flex items-center bg-[#337AB7] hover:bg-[#23527c] text-white text-[12px] px-1.5 py-0.5 rounded transition whitespace-nowrap">
                                     <i class="bi bi-pencil-fill mr-1 text-sm"></i> РЕДАКТИРОВАНИЕ
                                 </button>
-                                <button class="flex items-center bg-red-500 hover:bg-red-600 text-white text-[12px] px-1.5 py-0.5 rounded transition whitespace-nowrap">
+                                <button onclick="openContractModal()" class="flex items-center bg-red-500 hover:bg-red-600 text-white text-[12px] px-1.5 py-0.5 rounded transition whitespace-nowrap">
                                     <i class="bi bi-file-earmark-text-fill mr-1 text-sm"></i> ПУНКТЫ ДОГОВОРА
                                 </button>
                             </div>
@@ -274,7 +297,7 @@
 
                     <!-- Кнопки действия -->
                     <div class="flex justify-end gap-3 pt-6">
-                        <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded font-semibold text-sm">СОХРАНИТЬ</button>
+                        <button class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded font-semibold text-sm"><i class="bi bi-save"></i> СОХРАНИТЬ</button>
                         <button onclick="closeContractModal()" class="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-2 rounded font-semibold text-sm">ОТМЕНА</button>
                     </div>
                 </div>
@@ -297,26 +320,26 @@
                 </button>
             </div>
             <!-- Кнопки фильтров -->
-            <div class="flex flex-wrap gap-1 px-4 py-2 bg-white border-b">
-                <button class="bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-2 px-4 py-2 bg-white border-b">
+                <button class="bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-calendar-check"></i> ПРОКАТ СЕГОДНЯ
                 </button>
-                <button class="bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-exclamation-triangle"></i> НЕОПЛАЧЕННЫЕ
                 </button>
-                <button class="bg-red-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-red-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-counterclockwise"></i> НЕВОЗВРАЩЁННЫЕ
                 </button>
-                <button class="bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-left"></i> ВЕРНУТЬ СЕГОДНЯ
                 </button>
-                <button class="bg-green-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-green-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-cash-stack"></i> ПЕРЕПЛАТА
                 </button>
-                <button class="bg-blue-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-repeat"></i> ВОЗВРАЩЁННЫЕ
                 </button>
-                <button class="bg-blue-900 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-900 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-journal-x"></i> НЕЗАКРЫТЫЕ
                 </button>
             </div>
@@ -449,8 +472,11 @@
                             <i class="bi bi-person text-gray-700"></i>
                             <label class="w-36 text-[14px]">Клиент:</label>
                             <input type="text" class="border rounded p-1 flex-1 text-[14px]" placeholder="введите первые буквы...">
+                            <button type="button" @click="showProkat = false; showClientCard = true">
+                                <i class="bi bi-person-plus"></i>
+                            </button>
                             <button type="button"><i class="bi bi-search"></i></button>
-                            <button type="button"><i class="bi bi-person-plus"></i></button>
+
                         </div>
                         <!-- юр лицо -->
                         <div class="flex items-center gap-2">
@@ -647,4 +673,109 @@
         </script>
 
     </main>
+    <script>
+    document.getElementById('logout-btn')?.addEventListener('click', async function() {
+        // Если у тебя есть /api/logout, можно вызвать, если нет — просто очищай localStorage
+        const token = localStorage.getItem('token');
+        if (token) {
+            // Если api/logout не реализован — этот кусок можно удалить или закомментить
+            try {
+                await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            } catch (e) {
+                // Можно ничего не делать, сервер не обязателен для SPA-логаута
+            }
+        }
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+    });
+    </script>
+    <script>
+    (async function() {
+        // 1. Проверка токена
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        // 2. Получаем пользователя
+        let user;
+        try {
+            const res = await fetch('/api/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error('Не авторизован');
+            user = await res.json();
+        } catch {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        // 3. Доступен только для role == 'manager'
+        if (user.role !== 'manager') {
+            if (user.role === 'superadmin') {
+                window.location.href = '/dashboard-superadmin';
+            } else if (user.role === 'employee') {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/login';
+            }
+            return;
+        }
+        // Всё ок — менеджер на своей странице
+    })();
+    </script>
+
+    <script>
+    // Скрываем main после загрузки DOM
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('main')?.style.setProperty('display', 'none');
+    });
+
+    (async function() {
+        // 1. Проверка токена
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        // 2. Получаем пользователя
+        let user;
+        try {
+            const res = await fetch('/api/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error('Не авторизован');
+            user = await res.json();
+        } catch {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        // 3. Только для manager!
+        if (user.role !== 'manager') {
+            if (user.role === 'superadmin') {
+                window.location.href = '/dashboard-superadmin';
+            } else if (user.role === 'employee') {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/login';
+            }
+            return;
+        }
+
+        // Всё ок — показываем main и убираем прелоадер
+        document.querySelector('main').style.display = '';
+        document.getElementById('preload')?.remove();
+    })();
+    </script>
 </x-app-layout>

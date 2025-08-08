@@ -5,6 +5,15 @@
         </h2>
     </x-slot>
 
+    <div id="preload" style="
+        position:fixed;inset:0;z-index:999999;display:flex;
+        align-items:center;justify-content:center;
+        background:#f4f6fb;">
+    <span style="font-size:22px;color:#888;">
+        Загрузка...
+    </span>
+    </div>
+
     <main class="w-full px-2 sm:px-4 py-6">
         <!-- Панель пользователя + метрики -->
         <div class="bg-gray-200 rounded-xl p-4 mb-6 flex items-center justify-between">
@@ -14,12 +23,10 @@
                     <div>
                         <div class="font-semibold text-xl">Бабинский Дмитрий</div>
                         <div class="text-base text-gray-700">Филиал: Светлая 42</div>
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="flex items-center gap-2 text-base text-gray-700 hover:text-red-600 mt-2">
-                                <i class="bi bi-box-arrow-right text-xl"></i> Выйти
-                            </button>
-                        </form>
+                        <button id="logout-btn" class="flex items-center gap-2 text-base text-gray-700 hover:text-red-600 mt-2">
+                            <i class="bi bi-box-arrow-right text-xl"></i>
+                            Выйти
+                        </button>
                     </div>
                 </div>
             </div>
@@ -98,6 +105,8 @@
                 </button>
                 <div id="refs-dropdown"
                     class="hidden absolute z-20 mt-2 w-[230px] bg-white border border-gray-200 rounded shadow-lg left-0">
+                    <a href="{{ route('equipment.manager-index') }}"
+                        class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Справочник оборудования</a>
                     <a href="{{ route('discounts.index-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Скидки</a>
                     <a href="{{ route('units-directory-manager') }}"
@@ -513,4 +522,110 @@
             </table>
         </div>
     </main>
+    <script>
+    document.getElementById('logout-btn')?.addEventListener('click', async function() {
+        // Если у тебя есть /api/logout, можно вызвать, если нет — просто очищай localStorage
+        const token = localStorage.getItem('token');
+        if (token) {
+            // Если api/logout не реализован — этот кусок можно удалить или закомментить
+            try {
+                await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            } catch (e) {
+                // Можно ничего не делать, сервер не обязателен для SPA-логаута
+            }
+        }
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+    });
+    </script>
+    <script>
+    (async function() {
+        // 1. Проверка токена
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        // 2. Получаем пользователя
+        let user;
+        try {
+            const res = await fetch('/api/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error('Не авторизован');
+            user = await res.json();
+        } catch {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        // 3. Доступен только для role == 'manager'
+        if (user.role !== 'manager') {
+            if (user.role === 'superadmin') {
+                window.location.href = '/dashboard-superadmin';
+            } else if (user.role === 'employee') {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/login';
+            }
+            return;
+        }
+        // Всё ок — менеджер на своей странице
+    })();
+    </script>
+
+    <script>
+    // Скрываем main после загрузки DOM
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('main')?.style.setProperty('display', 'none');
+    });
+
+    (async function() {
+        // 1. Проверка токена
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        // 2. Получаем пользователя
+        let user;
+        try {
+            const res = await fetch('/api/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error('Не авторизован');
+            user = await res.json();
+        } catch {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        // 3. Только для manager!
+        if (user.role !== 'manager') {
+            if (user.role === 'superadmin') {
+                window.location.href = '/dashboard-superadmin';
+            } else if (user.role === 'employee') {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/login';
+            }
+            return;
+        }
+
+        // Всё ок — показываем main и убираем прелоадер
+        document.querySelector('main').style.display = '';
+        document.getElementById('preload')?.remove();
+    })();
+    </script>
+
 </x-app-layout>

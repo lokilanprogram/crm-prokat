@@ -7,6 +7,15 @@
         </h2>
     </x-slot>
 
+    <div id="preload" style="
+        position:fixed;inset:0;z-index:999999;display:flex;
+        align-items:center;justify-content:center;
+        background:#f4f6fb;">
+    <span style="font-size:22px;color:#888;">
+        Загрузка...
+    </span>
+    </div>
+
     <main class="w-full px-2 sm:px-4 py-6">
 
         <!-- Панель пользователя + метрики -->
@@ -17,11 +26,11 @@
                     <div>
                         <div class="font-semibold text-xl">Бабинский Дмитрий</div>
                         <div class="text-base text-gray-700">Филиал: Светлая 42</div>
-                        <form>
-                            <button type="button" class="flex items-center gap-2 text-base text-gray-700 hover:text-red-600 mt-2">
-                                <i class="bi bi-box-arrow-right text-xl"></i> Выйти
-                            </button>
-                        </form>
+                        <button id="logout-btn" class="flex items-center gap-2 text-base text-gray-700 hover:text-red-600 mt-2">
+                            <i class="bi bi-box-arrow-right text-xl"></i>
+                            Выйти
+                        </button>
+
                     </div>
                 </div>
             </div>
@@ -231,22 +240,30 @@
                     </thead>
                     <tbody>
                         <tr class="border-b border-gray-300">
-                            <td class="p-2 font-semibold border border-gray-300">Журналы (1)</td>
+                            <td class="p-2 font-semibold border border-gray-300">Журналы (1)
+                                <i class="bi bi-chevron-down ml-2 text-gray-400"></i>
+                            </td>
                             <td class="p-2 text-xs border border-gray-300"> </td>
                             <td class="p-2 text-center border border-gray-300"><input type="checkbox" checked></td>
                         </tr>
                         <tr class="border-b border-gray-300">
-                            <td class="p-2 font-semibold border border-gray-300">Отчёты (2)</td>
+                            <td class="p-2 font-semibold border border-gray-300">Отчёты (2)
+                                <i class="bi bi-chevron-down ml-2 text-gray-400"></i>
+                            </td>
                             <td class="p-2 text-xs border border-gray-300"></td>
                             <td class="p-2 text-center border border-gray-300"><input type="checkbox" checked></td>
                         </tr>
                         <tr class="border-b border-gray-300">
-                            <td class="p-2 font-semibold border border-gray-300">Справочники (3)</td>
+                            <td class="p-2 font-semibold border border-gray-300">Справочники (3)
+                                <i class="bi bi-chevron-down ml-2 text-gray-400"></i>
+                            </td>
                             <td class="p-2 text-xs border border-gray-300"></td>
                             <td class="p-2 text-center border border-gray-300"><input type="checkbox" checked></td>
                         </tr>
                         <tr class="border-b border-gray-300">
-                            <td class="p-2 font-semibold border border-gray-300">Настройки (4)</td>
+                            <td class="p-2 font-semibold border border-gray-300">Настройки (4)
+                                <i class="bi bi-chevron-down ml-2 text-gray-400"></i>
+                            </td>
                             <td class="p-2 text-xs border border-gray-300"></td>
                             <td class="p-2 text-center border border-gray-300"><input type="checkbox" checked></td>
                         </tr>
@@ -283,7 +300,9 @@
                             <td class="p-2 text-center border border-gray-300"><input type="checkbox"></td>
                         </tr>
                         <tr>
-                            <td class="p-2 font-semibold border border-gray-300">Личный кабинет (5)</td>
+                            <td class="p-2 font-semibold border border-gray-300">Личный кабинет (5)
+                                <i class="bi bi-chevron-down ml-2 text-gray-400"></i>
+                            </td>
                             <td class="p-2 text-xs border border-gray-300"></td>
                             <td class="p-2 text-center border border-gray-300"><input type="checkbox" checked></td>
                         </tr>
@@ -296,15 +315,15 @@
                 <div class="text-[17px] font-semibold mb-2">Назначение прав для пользователя:</div>
                 <div class="flex items-center gap-2 mb-2">
                     <img src="https://prokat69.maxpro-crm.ru/img/pictures/users/_2024_10_23_16_38_59.png" alt="BeriBike" class="w-16 h-16 rounded-full border border-gray-200 object-contain bg-white">
-                    <select class="border rounded px-2 py-1 text-lg font-semibold">
+                    <select class="border rounded px-2 py-1 text-lg font-semibold pr-8">
                         <option>Бабинский Дмитрий</option>
                         <option>Васильев Александр</option>
                         <option>Сидорова Ирина</option>
                     </select>
                 </div>
-                <button class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 rounded text-base">СБРОСИТЬ ДОСТУП</button>
-                <button class="w-full bg-green-700 hover:bg-green-800 text-white font-bold py-2 rounded text-base">ПОЛНЫЙ ДОСТУП</button>
-                <button class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 rounded text-base mt-2">СОХРАНИТЬ НАСТРОЙКИ МЕНЮ ДЛЯ ПОЛЬЗОВАТЕЛЯ</button>
+                <button class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2.5 px-8 rounded text-base mt-2">СБРОСИТЬ ДОСТУП</button>
+                <button class="w-full bg-green-700 hover:bg-green-800 text-white font-bold py-2.5 px-8 rounded text-base mt-2">ПОЛНЫЙ ДОСТУП</button>
+                <button class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2.5 px-8 rounded text-base mt-2">СОХРАНИТЬ НАСТРОЙКИ МЕНЮ ДЛЯ ПОЛЬЗОВАТЕЛЯ</button>
             </div>
         </div>
         @section('modals')
@@ -324,26 +343,26 @@
                 </button>
             </div>
             <!-- Кнопки фильтров -->
-            <div class="flex flex-wrap gap-1 px-4 py-2 bg-white border-b">
-                <button class="bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-2 px-4 py-2 bg-white border-b">
+                <button class="bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-calendar-check"></i> ПРОКАТ СЕГОДНЯ
                 </button>
-                <button class="bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-exclamation-triangle"></i> НЕОПЛАЧЕННЫЕ
                 </button>
-                <button class="bg-red-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-red-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-counterclockwise"></i> НЕВОЗВРАЩЁННЫЕ
                 </button>
-                <button class="bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-left"></i> ВЕРНУТЬ СЕГОДНЯ
                 </button>
-                <button class="bg-green-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-green-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-cash-stack"></i> ПЕРЕПЛАТА
                 </button>
-                <button class="bg-blue-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-repeat"></i> ВОЗВРАЩЁННЫЕ
                 </button>
-                <button class="bg-blue-900 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-900 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-journal-x"></i> НЕЗАКРЫТЫЕ
                 </button>
             </div>
@@ -476,8 +495,11 @@
                             <i class="bi bi-person text-gray-700"></i>
                             <label class="w-36 text-[14px]">Клиент:</label>
                             <input type="text" class="border rounded p-1 flex-1 text-[14px]" placeholder="введите первые буквы...">
+                            <button type="button" @click="showProkat = false; showClientCard = true">
+                                <i class="bi bi-person-plus"></i>
+                            </button>
                             <button type="button"><i class="bi bi-search"></i></button>
-                            <button type="button"><i class="bi bi-person-plus"></i></button>
+
                         </div>
                         <!-- юр лицо -->
                         <div class="flex items-center gap-2">
@@ -665,4 +687,107 @@
 
     @endsection
     </main>
+    <script>
+    document.getElementById('logout-btn')?.addEventListener('click', async function() {
+        // Если у тебя есть /api/logout, можно вызвать, если нет — просто очищай localStorage
+        const token = localStorage.getItem('token');
+        if (token) {
+            // Если api/logout не реализован — этот кусок можно удалить или закомментить
+            try {
+                await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            } catch (e) {
+                // Можно ничего не делать, сервер не обязателен для SPA-логаута
+            }
+        }
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+    });
+    </script>
+    <script>
+    (async function() {
+        // 1. Проверка токена
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        // 2. Получаем пользователя
+        let user;
+        try {
+            const res = await fetch('/api/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error('Не авторизован');
+            user = await res.json();
+        } catch {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        // 3. Доступен только для role == 'superadmin'
+        if (user.role !== 'superadmin') {
+            if (user.role === 'manager') {
+                window.location.href = '/dashboard-manager';
+            } else if (user.role === 'employee') {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/login';
+            }
+            return;
+        }
+        // Всё ок — супер-админ на своей странице
+    })();
+    </script>
+
+    <script>
+    // 1. Скрываем main сразу после загрузки DOM
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('main')?.style.setProperty('display', 'none');
+    });
+
+    (async function() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        let user;
+        try {
+            const res = await fetch('/api/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error('Не авторизован');
+            user = await res.json();
+        } catch {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        // Проверка роли (подстрой под нужные условия!)
+        if (user.role !== 'superadmin') {
+            if (user.role === 'manager') {
+                window.location.href = '/dashboard-manager';
+            } else if (user.role === 'employee') {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/login';
+            }
+            return;
+        }
+
+        // Всё ок, показываем main и убираем прелоадер
+        document.querySelector('main').style.display = '';
+        document.getElementById('preload')?.remove();
+    })();
+    </script>
 </x-app-layout>

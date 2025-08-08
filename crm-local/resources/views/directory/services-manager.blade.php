@@ -5,6 +5,15 @@
         </h2>
     </x-slot>
 
+    <div id="preload" style="
+        position:fixed;inset:0;z-index:999999;display:flex;
+        align-items:center;justify-content:center;
+        background:#f4f6fb;">
+    <span style="font-size:22px;color:#888;">
+        Загрузка...
+    </span>
+    </div>
+
     <main class="w-full px-2 sm:px-4 py-6">
         <!-- Панель пользователя + метрики -->
         <div class="bg-gray-200 rounded-xl p-4 mb-6 flex items-center justify-between">
@@ -14,12 +23,11 @@
                     <div class="w-20 h-20 bg-black rounded-full"></div>
                     <div>
                         <div class="font-semibold text-xl">Бабинский Дмитрий</div>
-                        <div class="text-base text-gray-700">Филиал: Светлая 42</div>                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="flex items-center gap-2 text-base text-gray-700 hover:text-red-600 mt-2">
-                                <i class="bi bi-box-arrow-right text-xl"></i> Выйти
-                            </button>
-                        </form>
+                        <div class="text-base text-gray-700">Филиал: Светлая 42</div>
+                        <button id="logout-btn" class="flex items-center gap-2 text-base text-gray-700 hover:text-red-600 mt-2">
+                            <i class="bi bi-box-arrow-right text-xl"></i>
+                            Выйти
+                        </button>
                     </div>
                 </div>
             </div>
@@ -98,6 +106,8 @@
                 </button>
                 <div id="refs-dropdown"
                     class="hidden absolute z-20 mt-2 w-[230px] bg-white border border-gray-200 rounded shadow-lg left-0">
+                    <a href="{{ route('equipment.manager-index') }}"
+                        class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Справочник оборудования</a>
                     <a href="{{ route('discounts.index-manager') }}"
                         class="block px-4 py-3 text-gray-800 hover:bg-blue-50 border-b border-gray-100">Скидки</a>
                     <a href="{{ route('units-directory-manager') }}"
@@ -180,7 +190,7 @@
                 <input type="text" class="border p-1 rounded ml-1" />
             </label>
             <label>Вид цены:
-                <select class="border p-1 rounded ml-1">
+                <select class="border p-1 rounded ml-1 pr-7 min-w-[120px]">
                     <option>Не выбран</option>
                 </select>
             </label>
@@ -198,37 +208,36 @@
 
         <!-- Таблица -->
         <div class="overflow-auto rounded border bg-white">
-            <table class="w-full text-sm">
+            <table class="w-full text-sm border border-gray-300">
                 <thead class="bg-blue-50 text-xs uppercase">
                     <tr>
-                        <th class="p-2">№ п.п.</th>
-                        <th class="p-2">Наименование</th>
-                        <th class="p-2">Стоимость</th>
-                        <th class="p-2">Доставка?</th>
-                        <th class="p-2">Фиксированная цена</th>
-                        <th class="p-2">Комментарий</th>
-                        <th class="p-2"></th>
+                        <th class="p-2 border border-gray-300">№ п.п.</th>
+                        <th class="p-2 border border-gray-300">Наименование</th>
+                        <th class="p-2 border border-gray-300">Стоимость</th>
+                        <th class="p-2 border border-gray-300">Доставка?</th>
+                        <th class="p-2 border border-gray-300">Фиксированная цена</th>
+                        <th class="p-2 border border-gray-300">Комментарий</th>
+                        <th class="p-2 border border-gray-300"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Здесь будут услуги — динамически -->
-                    <tr>
-                        <td class="p-2 text-center">1</td>
-                        <td class="p-2">Пример услуги</td>
-                        <td class="p-2 text-right">5 000.00</td>
-                        <td class="p-2 text-center"><input type="checkbox" checked disabled></td>
-                        <td class="p-2 text-center text-green-600 font-semibold">Да</td>
-                        <td class="p-2">Комментарий</td>
-                        <td class="p-2 text-center"><i class="bi bi-pencil"></i></td>
+                    <tr class="hover:bg-blue-50">
+                        <td class="p-2 text-center border border-gray-300">1</td>
+                        <td class="p-2 border border-gray-300">Пример услуги</td>
+                        <td class="p-2 text-right border border-gray-300">5 000.00</td>
+                        <td class="p-2 text-center border border-gray-300"><input type="checkbox" checked disabled></td>
+                        <td class="p-2 text-center border border-gray-300 text-green-600 font-semibold">Да</td>
+                        <td class="p-2 border border-gray-300">Комментарий</td>
+                        <td class="p-2 text-center border border-gray-300"><i class="bi bi-pencil"></i></td>
                     </tr>
-                    <tr>
-                        <td class="p-2 text-center">1</td>
-                        <td class="p-2">Пример услуги</td>
-                        <td class="p-2 text-right">6 000.00</td>
-                        <td class="p-2 text-center"><input type="checkbox" checked disabled></td>
-                        <td class="p-2 text-center text-red-600 font-semibold">Нет</td>
-                        <td class="p-2">Комментарий</td>
-                        <td class="p-2 text-center"><i class="bi bi-pencil"></i></td>
+                    <tr class="hover:bg-blue-50">
+                        <td class="p-2 text-center border border-gray-300">2</td>
+                        <td class="p-2 border border-gray-300">Пример услуги</td>
+                        <td class="p-2 text-right border border-gray-300">6 000.00</td>
+                        <td class="p-2 text-center border border-gray-300"><input type="checkbox" checked disabled></td>
+                        <td class="p-2 text-center border border-gray-300 text-red-600 font-semibold">Нет</td>
+                        <td class="p-2 border border-gray-300">Комментарий</td>
+                        <td class="p-2 text-center border border-gray-300"><i class="bi bi-pencil"></i></td>
                     </tr>
                 </tbody>
             </table>
@@ -250,26 +259,26 @@
                 </button>
             </div>
             <!-- Кнопки фильтров -->
-            <div class="flex flex-wrap gap-1 px-4 py-2 bg-white border-b">
-                <button class="bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-2 px-4 py-2 bg-white border-b">
+                <button class="bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-calendar-check"></i> ПРОКАТ СЕГОДНЯ
                 </button>
-                <button class="bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-exclamation-triangle"></i> НЕОПЛАЧЕННЫЕ
                 </button>
-                <button class="bg-red-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-red-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-counterclockwise"></i> НЕВОЗВРАЩЁННЫЕ
                 </button>
-                <button class="bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-left"></i> ВЕРНУТЬ СЕГОДНЯ
                 </button>
-                <button class="bg-green-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-green-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-cash-stack"></i> ПЕРЕПЛАТА
                 </button>
-                <button class="bg-blue-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-repeat"></i> ВОЗВРАЩЁННЫЕ
                 </button>
-                <button class="bg-blue-900 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-900 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-journal-x"></i> НЕЗАКРЫТЫЕ
                 </button>
             </div>
@@ -402,8 +411,11 @@
                             <i class="bi bi-person text-gray-700"></i>
                             <label class="w-36 text-[14px]">Клиент:</label>
                             <input type="text" class="border rounded p-1 flex-1 text-[14px]" placeholder="введите первые буквы...">
+                            <button type="button" @click="showProkat = false; showClientCard = true">
+                                <i class="bi bi-person-plus"></i>
+                            </button>
                             <button type="button"><i class="bi bi-search"></i></button>
-                            <button type="button"><i class="bi bi-person-plus"></i></button>
+
                         </div>
                         <!-- юр лицо -->
                         <div class="flex items-center gap-2">
@@ -594,7 +606,7 @@
 
     <!-- Модалка -->
     <div id="service-modal" class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden z-50">
-        <div class="bg-white shadow-xl rounded border w-[400px] p-4">
+        <div class="bg-white shadow-xl rounded border w-[520px] p-4">
             <div class="bg-[#337AB7] text-white px-4 py-2 font-semibold rounded-t">Редактирование справочника Услуги проката</div>
             <form class="p-4 space-y-3">
                 <div>
@@ -609,22 +621,148 @@
                     <label class="text-sm">Дополнительное описание</label>
                     <input type="text" class="w-full border rounded px-2 py-1 text-sm" />
                 </div>
-                <div class="flex gap-3 items-center">
-                    <label class="text-sm flex items-center gap-1">
-                        <input type="checkbox" class="h-4 w-4" /> Доставка?
+                <div class="flex gap-6 items-center">
+                    <label class="flex items-center gap-2 cursor-pointer select-none text-sm">
+                        <span class="w-[80px]">Доставка?</span>
+                        <span class="relative">
+                            <input type="checkbox" class="peer sr-only">
+                            <span class="block w-7 h-4 bg-gray-200 rounded-full transition-colors duration-200 peer-checked:bg-[#337AB7]"></span>
+                            <span class="absolute left-0.5 top-0.5 w-3 h-3 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-3"></span>
+                        </span>
                     </label>
-                    <label class="text-sm flex items-center gap-1">
-                        <input type="checkbox" class="h-4 w-4" /> Фикс. цена?
+                    <label class="flex items-center gap-2 cursor-pointer select-none text-sm">
+                        <span class="w-[85px]">Фикс. цена?</span>
+                        <span class="relative">
+                            <input type="checkbox" class="peer sr-only">
+                            <span class="block w-7 h-4 bg-gray-200 rounded-full transition-colors duration-200 peer-checked:bg-[#337AB7]"></span>
+                            <span class="absolute left-0.5 top-0.5 w-3 h-3 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-3"></span>
+                        </span>
                     </label>
-                    <label class="text-sm flex items-center gap-1">
-                        <input type="checkbox" class="h-4 w-4" /> Активный ли элемент?
+                    <label class="flex items-center gap-2 cursor-pointer select-none text-sm">
+                        <span class="w-[90px]">Активный ли элемент?</span>
+                        <span class="relative">
+                            <input type="checkbox" class="peer sr-only" checked>
+                            <span class="block w-7 h-4 bg-gray-200 rounded-full transition-colors duration-200 peer-checked:bg-[#337AB7]"></span>
+                            <span class="absolute left-0.5 top-0.5 w-3 h-3 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-3"></span>
+                        </span>
                     </label>
                 </div>
+
+
+
+                    <!-- <label class="text-sm flex items-center gap-1">
+                        <input type="checkbox" class="h-4 w-4" /> Активный ли элемент?
+                    </label> -->
                 <div class="flex justify-end gap-2 pt-3">
-                    <button type="submit" class="bg-[#337AB7] text-white px-4 py-2 rounded text-sm font-semibold">СОХРАНИТЬ</button>
+                    <button type="submit" class="bg-[#337AB7] text-white px-4 py-2 rounded text-sm font-semibold"><i class="bi bi-save"></i> СОХРАНИТЬ</button>
                     <button type="button" onclick="document.getElementById('service-modal').classList.add('hidden')" class="bg-red-500 text-white px-4 py-2 rounded text-sm font-semibold">ОТМЕНА</button>
                 </div>
             </form>
         </div>
     </div>
+    <script>
+    document.getElementById('logout-btn')?.addEventListener('click', async function() {
+        // Если у тебя есть /api/logout, можно вызвать, если нет — просто очищай localStorage
+        const token = localStorage.getItem('token');
+        if (token) {
+            // Если api/logout не реализован — этот кусок можно удалить или закомментить
+            try {
+                await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            } catch (e) {
+                // Можно ничего не делать, сервер не обязателен для SPA-логаута
+            }
+        }
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+    });
+    </script>
+    <script>
+    (async function() {
+        // 1. Проверка токена
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        // 2. Получаем пользователя
+        let user;
+        try {
+            const res = await fetch('/api/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error('Не авторизован');
+            user = await res.json();
+        } catch {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        // 3. Доступен только для role == 'manager'
+        if (user.role !== 'manager') {
+            if (user.role === 'superadmin') {
+                window.location.href = '/dashboard-superadmin';
+            } else if (user.role === 'employee') {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/login';
+            }
+            return;
+        }
+        // Всё ок — менеджер на своей странице
+    })();
+    </script>
+
+    <script>
+    // Скрываем main после загрузки DOM
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('main')?.style.setProperty('display', 'none');
+    });
+
+    (async function() {
+        // 1. Проверка токена
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        // 2. Получаем пользователя
+        let user;
+        try {
+            const res = await fetch('/api/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error('Не авторизован');
+            user = await res.json();
+        } catch {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        // 3. Только для manager!
+        if (user.role !== 'manager') {
+            if (user.role === 'superadmin') {
+                window.location.href = '/dashboard-superadmin';
+            } else if (user.role === 'employee') {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/login';
+            }
+            return;
+        }
+
+        // Всё ок — показываем main и убираем прелоадер
+        document.querySelector('main').style.display = '';
+        document.getElementById('preload')?.remove();
+    })();
+    </script>
 </x-app-layout>

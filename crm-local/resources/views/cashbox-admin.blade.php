@@ -7,6 +7,16 @@
         </h2>
     </x-slot>
 
+    <div id="preload" style="
+        position:fixed;inset:0;z-index:999999;display:flex;
+        align-items:center;justify-content:center;
+        background:#f4f6fb;">
+    <span style="font-size:22px;color:#888;">
+        Загрузка...
+    </span>
+    </div>
+
+
     <main class="w-full px-2 sm:px-4 py-6">
 
         {{-- Панель пользователя + метрики --}}
@@ -17,7 +27,7 @@
                     <div>
                         <div class="font-semibold text-xl">Бабинский Дмитрий</div>
                         <div class="text-base text-gray-700">Филиал: Светлая 42</div>
-                        <button class="flex items-center gap-2 text-base text-gray-700 hover:text-red-600 mt-2">
+                        <button id="logout-btn" class="flex items-center gap-2 text-base text-gray-700 hover:text-red-600 mt-2">
                             <i class="bi bi-box-arrow-right text-xl"></i>
                             Выйти
                         </button>
@@ -317,17 +327,17 @@
                 <div class="bg-[#5BBA5A] text-white font-semibold text-xs py-1 px-2 rounded-t border-b text-center border-green-700">
                     Продажа товаров
                 </div>
-                <table class="w-full text-xs">
+                <table class="w-full text-xs border border-gray-300 border-collapse">
                     <thead>
                         <tr class="bg-blue-100 text-blue-900 font-bold border-b">
-                            <th class="px-2 py-1">Тип платежа</th>
-                            <th class="px-2 py-1">Сумма</th>
+                            <th class="border border-gray-300 px-2 py-1">Тип платежа</th>
+                            <th class="border border-gray-300 px-2 py-1">Сумма</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-b"><td class="px-2 py-1">Налички</td><td class="px-2 py-1">105 500,00</td></tr>
-                        <tr class="border-b"><td class="px-2 py-1">б/н (расчетный счет)</td><td class="px-2 py-1">80 499,00</td></tr>
-                        <tr><td class="px-2 py-1">Карта в офисе</td><td class="px-2 py-1">74 127,00</td></tr>
+                        <tr class="border-b"><td class="border border-gray-300 px-2 py-1">Налички</td><td class="border border-gray-300 px-2 py-1">105 500,00</td></tr>
+                        <tr class="border-b"><td class="border border-gray-300 px-2 py-1">б/н (расчетный счет)</td><td class="border border-gray-300 px-2 py-1">80 499,00</td></tr>
+                        <tr><td class="border border-gray-300 px-2 py-1">Карта в офисе</td><td class="border border-gray-300 px-2 py-1">74 127,00</td></tr>
                     </tbody>
                 </table>
                 <div class="text-right text-lg font-bold text-red-600 px-2 pb-2">260 126,00р.</div>
@@ -337,17 +347,20 @@
                 <div class="bg-[#5BBA5A] text-white font-semibold text-xs py-1 px-2 rounded-t border-b text-center border-green-700">
                     Общая сумма залогов, руб.
                 </div>
-                <table class="w-full text-xs">
+                <table class="w-full text-xs border border-gray-300 border-collapse">
                     <thead>
                         <tr class="bg-blue-100 text-blue-900 font-bold border-b">
-                            <th class="px-2 py-1">Тип платежа</th>
-                            <th class="px-2 py-1">Приход</th>
-                            <th class="px-2 py-1">Расход</th>
-                            <th class="px-2 py-1">Сумма</th>
+                            <th class="border border-gray-300 px-2 py-1 text-[11px]">Тип платежа</th>
+                            <th class="border border-gray-300 px-2 py-1">Приход</th>
+                            <th class="border border-gray-300 px-2 py-1">Расход</th>
+                            <th class="border border-gray-300 px-2 py-1">Сумма</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td class="px-2 py-1">нал</td><td class="px-2 py-1">1 059 952,00</td><td class="px-2 py-1">1 044 152,00</td><td class="px-2 py-1">15 800,00</td></tr>
+                        <tr><th class="border border-gray-300 px-2 py-1">нал</td>
+                        <th class="border border-gray-300 px-2 py-1">1 059 952,00</td>
+                        <th class="border border-gray-300 px-2 py-1">1 044 152,00</td>
+                        <th class="border border-gray-300 px-2 py-1">15 800,00</td></tr>
                         <tr>
                             <td colspan="4" class="text-right font-bold px-2 py-1">Итого: 15 800,00</td>
                         </tr>
@@ -405,7 +418,7 @@
                             <td class="px-2 py-1 border border-gray-300">Хохлов Д.</td>
                             <td class="px-2 py-1 text-red-600 font-bold text-lg border border-gray-300">&times;</td>
                         </tr>
-                        <!-- ... остальные строки ... -->
+                        <!-- ... -->
                     </tbody>
                 </table>
             </div>
@@ -507,26 +520,26 @@
                 </button>
             </div>
             <!-- Кнопки фильтров -->
-            <div class="flex flex-wrap gap-1 px-4 py-2 bg-white border-b">
-                <button class="bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-2 px-4 py-2 bg-white border-b">
+                <button class="bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-calendar-check"></i> ПРОКАТ СЕГОДНЯ
                 </button>
-                <button class="bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-exclamation-triangle"></i> НЕОПЛАЧЕННЫЕ
                 </button>
-                <button class="bg-red-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-red-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-counterclockwise"></i> НЕВОЗВРАЩЁННЫЕ
                 </button>
-                <button class="bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-left"></i> ВЕРНУТЬ СЕГОДНЯ
                 </button>
-                <button class="bg-green-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-green-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-cash-stack"></i> ПЕРЕПЛАТА
                 </button>
-                <button class="bg-blue-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-repeat"></i> ВОЗВРАЩЁННЫЕ
                 </button>
-                <button class="bg-blue-900 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-900 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-journal-x"></i> НЕЗАКРЫТЫЕ
                 </button>
             </div>
@@ -659,8 +672,11 @@
                             <i class="bi bi-person text-gray-700"></i>
                             <label class="w-36 text-[14px]">Клиент:</label>
                             <input type="text" class="border rounded p-1 flex-1 text-[14px]" placeholder="введите первые буквы...">
+                            <button type="button" @click="showProkat = false; showClientCard = true">
+                                <i class="bi bi-person-plus"></i>
+                            </button>
                             <button type="button"><i class="bi bi-search"></i></button>
-                            <button type="button"><i class="bi bi-person-plus"></i></button>
+
                         </div>
                         <!-- юр лицо -->
                         <div class="flex items-center gap-2">
@@ -848,4 +864,107 @@
 
     @endsection
     </main>
+    <script>
+    document.getElementById('logout-btn')?.addEventListener('click', async function() {
+        // Если у тебя есть /api/logout, можно вызвать, если нет — просто очищай localStorage
+        const token = localStorage.getItem('token');
+        if (token) {
+            // Если api/logout не реализован — этот кусок можно удалить или закомментить
+            try {
+                await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            } catch (e) {
+                // Можно ничего не делать, сервер не обязателен для SPA-логаута
+            }
+        }
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+    });
+    </script>
+    <script>
+    (async function() {
+        // 1. Проверка токена
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        // 2. Получаем пользователя
+        let user;
+        try {
+            const res = await fetch('/api/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error('Не авторизован');
+            user = await res.json();
+        } catch {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        // 3. Доступен только для role == 'superadmin'
+        if (user.role !== 'superadmin') {
+            if (user.role === 'manager') {
+                window.location.href = '/dashboard-manager';
+            } else if (user.role === 'employee') {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/login';
+            }
+            return;
+        }
+        // Всё ок — супер-админ на своей странице
+    })();
+    </script>
+
+    <script>
+    // 1. Скрываем main сразу после загрузки DOM
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('main')?.style.setProperty('display', 'none');
+    });
+
+    (async function() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        let user;
+        try {
+            const res = await fetch('/api/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error('Не авторизован');
+            user = await res.json();
+        } catch {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        // Проверка роли (подстрой под нужные условия!)
+        if (user.role !== 'superadmin') {
+            if (user.role === 'manager') {
+                window.location.href = '/dashboard-manager';
+            } else if (user.role === 'employee') {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/login';
+            }
+            return;
+        }
+
+        // Всё ок, показываем main и убираем прелоадер
+        document.querySelector('main').style.display = '';
+        document.getElementById('preload')?.remove();
+    })();
+    </script>
 </x-app-layout>
