@@ -320,14 +320,30 @@
                             <input type="checkbox"> Техническая информация
                         </label>
                     </div>
-                    <div class="mb-1 text-sm font-semibold">Оборудование</div>
-                    <div class="mb-1 text-sm font-semibold">Прокаты</div>
-                    <div class="mb-1 text-sm font-semibold">Отчёты и фильтры</div>
-                    <div class="mb-1 text-sm font-semibold">Корпоративный отдел</div>
-                    <div class="mb-1 text-sm font-semibold">Запчасти</div>
-                    <div class="mb-1 text-sm font-semibold">Остальное</div>
-                    <div class="mb-1 text-sm font-semibold">Товары</div>
-                    <div class="mb-1 text-sm font-semibold">Счета</div>
+                    <div class="mb-1 text-sm font-semibold">Оборудование
+                        <i class="bi bi-chevron-down ml-2 text-gray-400"></i>
+                    </div>
+                    <div class="mb-1 text-sm font-semibold">Прокаты
+                        <i class="bi bi-chevron-down ml-2 text-gray-400"></i>
+                    </div>
+                    <div class="mb-1 text-sm font-semibold">Отчёты и фильтры
+                        <i class="bi bi-chevron-down ml-2 text-gray-400"></i>
+                    </div>
+                    <div class="mb-1 text-sm font-semibold">Корпоративный отдел
+                        <i class="bi bi-chevron-down ml-2 text-gray-400"></i>
+                    </div>
+                    <div class="mb-1 text-sm font-semibold">Запчасти
+                        <i class="bi bi-chevron-down ml-2 text-gray-400"></i>
+                    </div>
+                    <div class="mb-1 text-sm font-semibold">Остальное
+                        <i class="bi bi-chevron-down ml-2 text-gray-400"></i>
+                    </div>
+                    <div class="mb-1 text-sm font-semibold">Товары
+                        <i class="bi bi-chevron-down ml-2 text-gray-400"></i>
+                    </div>
+                    <div class="mb-1 text-sm font-semibold">Счета
+                        <i class="bi bi-chevron-down ml-2 text-gray-400"></i>
+                    </div>
                 </div>
             </div>
         </div>

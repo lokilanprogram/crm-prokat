@@ -47,8 +47,7 @@
                 <div class="flex flex-col items-center">
                     <i class="bi bi-credit-card text-3xl text-gray-800 mb-2"></i>
                     <span class="text-lg font-semibold">
-                        Касса: <span class="text-xl font-bold">33&nbsp;866.4&nbsp;<span class="text-gray-600">р.</span></span>
-                    </span>
+                    <span class="text-lg font-semibold">Касса: <span class="text-xl font-bold">33&nbsp;866.4&nbsp;<span class="text-gray-600">₽</span></span></span>                    </span>
                 </div>
             </div>
         </div>
@@ -245,8 +244,14 @@
                         <input type="text" class="border rounded flex-1 px-2 py-1 text-sm" placeholder="">
                     </div>
                     <div class="flex items-center gap-3 mb-3">
-                        <label class="block text-sm w-[140px]">Активность</label>
-                        <input type="checkbox" class="h-5 w-5 border rounded">
+                        <label class="flex items-center gap-2 cursor-pointer select-none">
+                            <span class="block text-sm w-[90px]">Активность</span>
+                            <span class="relative">
+                                <input type="checkbox" class="peer sr-only" checked>
+                                <span class="block w-11 h-6 bg-gray-200 rounded-full transition-colors duration-200 peer-checked:bg-[#337AB7]"></span>
+                                <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-5"></span>
+                            </span>
+                        </label>
                     </div>
                     <div class="flex justify-end gap-2 pt-3">
                         <button type="submit" class="bg-[#337AB7] text-white px-4 py-2 rounded text-sm font-semibold"><i class="bi bi-save"></i> СОХРАНИТЬ ИЗМЕНЕНИЯ</button>

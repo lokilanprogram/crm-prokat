@@ -274,32 +274,45 @@
                     <td class="p-2 border text-[11px] text-center"></td> -->
 
                     <!-- Остальные ячейки -->
-                    <td class="p-1 border align-center min-w-[110px] w-[120px] max-w-[140px]">
-                        <div class="flex flex-row items-stretch h-full">
+                    <td class="relative p-1 border min-w-[120px] w-[130px] max-w-[160px] align-middle">
+                        <div class="flex flex-row items-stretch h-full z-10">
                             <!-- Файлы -->
-                            <div class="flex flex-col gap-0.5 flex-1 justify-center">
-                            <div class="flex items-center gap-0.5">
-                                <i class="bi bi-file-earmark text-blue-900 text-[13px]"></i>
-                                <span class="text-blue-900 underline text-[11px] leading-tight">136 от 22.11.2021</span>
+                            <div
+                                class="flex flex-col gap-0.5 justify-center"
+                                style="max-width: 93px; padding-right: 18px; overflow: hidden;">
+                                <div class="flex items-center gap-0.5">
+                                    <i class="bi bi-file-earmark text-blue-900 text-[13px]"></i>
+                                    <span class="text-blue-900 underline text-[11px] leading-tight block"
+                                        style="max-width: 62px; word-break: break-word;">
+                                        136 от 22.11.2021
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-0.5">
+                                    <i class="bi bi-file-earmark text-blue-900 text-[13px]"></i>
+                                    <span class="text-blue-900 underline text-[11px] leading-tight block"
+                                        style="max-width: 62px; word-break: break-word;">
+                                        176 от 12.01.2023
+                                    </span>
+                                </div>
+                                <div class="flex items-center gap-0.5">
+                                    <i class="bi bi-file-earmark text-blue-900 text-[13px]"></i>
+                                    <span class="text-blue-900 underline text-[11px] leading-tight block"
+                                        style="max-width: 62px; word-break: break-word;">
+                                        176 от 12.01.2023
+                                    </span>
+                                </div>
+                                <!-- ... другие файлы ... -->
                             </div>
-                            <div class="flex items-center gap-0.5">
-                                <i class="bi bi-file-earmark text-blue-900 text-[13px]"></i>
-                                <span class="text-blue-900 underline text-[11px] leading-tight">176 от 12.01.2023</span>
-                            </div>
-                            <div class="flex items-center gap-0.5">
-                                <i class="bi bi-file-earmark text-blue-900 text-[13px]"></i>
-                                <span class="text-blue-900 underline text-[11px] leading-tight">176 от 12.01.2023</span>
-                            </div>
-                            <!-- ... другие файлы ... -->
-                            </div>
-                            <!-- Вертикальная линия на всю высоту -->
-                            <div class="w-px bg-gray-300 self-stretch"></div>
                             <!-- Загрузка -->
-                            <div class="flex flex-col justify-center items-center px-1">
-                            <button class="bg-transparent hover:bg-blue-50 rounded p-0.5" title="Загрузить">
-                                <i class="bi bi-upload text-blue-900 text-[15px]"></i>
-                            </button>
+                            <div class="flex flex-col justify-center items-center pl-2 z-10">
+                                <button class="bg-transparent hover:bg-blue-50 rounded p-0.5" title="Загрузить">
+                                    <i class="bi bi-upload text-blue-900 text-[15px]"></i>
+                                </button>
                             </div>
+                        </div>
+                        <!-- Вертикальная линия -->
+                        <div class="absolute top-0 bottom-0" style="left: 98px;">
+                            <div class="w-px h-full bg-gray-300"></div>
                         </div>
                     </td>
 
@@ -354,27 +367,40 @@
                     <!-- Квитанции -->
                     <td class="p-2 border text-blue-800 text-[11px] text-center" colspan="3"><span class="text-gray-400">нет данных</span></td>
                     <!-- Файлы -->
-                    <td class="p-1 border align-center min-w-[110px] w-[120px] max-w-[140px]">
-                        <div class="flex flex-row items-stretch h-full">
+                    <!-- Файлы -->
+                    <td class="relative p-1 border min-w-[120px] w-[130px] max-w-[160px] align-middle">
+                        <div class="flex flex-row items-stretch h-full z-10">
                             <!-- Файлы -->
-                            <div class="flex flex-col gap-0.5 flex-1 justify-center">
+                            <div
+                                class="flex flex-col gap-0.5 justify-center"
+                                style="max-width: 93px; padding-right: 18px; overflow: hidden;">
                                 <div class="flex items-center gap-0.5">
                                     <i class="bi bi-file-earmark text-blue-900 text-[13px]"></i>
-                                    <span class="text-blue-900 underline text-[11px] leading-tight">126 от 04.07.2024</span>
+                                    <span
+                                    class="text-blue-900 underline text-[11px] leading-tight block"
+                                    style="max-width: 62px; word-break: break-word;">
+                                    126 от 04.07.2024
+                                    </span>
                                 </div>
                                 <div class="flex items-center gap-0.5">
                                     <i class="bi bi-file-earmark text-blue-900 text-[13px]"></i>
-                                    <span class="text-blue-900 underline text-[11px] leading-tight">12 от 11.01.2025</span>
+                                    <span
+                                    class="text-blue-900 underline text-[11px] leading-tight block"
+                                    style="max-width: 62px; word-break: break-word;">
+                                    12 от 11.01.2025
+                                    </span>
                                 </div>
                             </div>
-                            <!-- Вертикальная линия -->
-                            <div class="w-px bg-gray-300 self-stretch"></div>
                             <!-- Загрузка -->
-                            <div class="flex flex-col justify-center items-center px-1">
+                            <div class="flex flex-col justify-center items-center pl-2 z-10">
                                 <button class="bg-transparent hover:bg-blue-50 rounded p-0.5" title="Загрузить">
                                     <i class="bi bi-upload text-blue-900 text-[15px]"></i>
                                 </button>
                             </div>
+                        </div>
+                        <!-- Вертикальная линия -->
+                        <div class="absolute top-0 bottom-0" style="left: 98px;">
+                            <div class="w-px h-full bg-gray-300"></div>
                         </div>
                     </td>
                     <!-- Акт сверки -->

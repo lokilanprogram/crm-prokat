@@ -175,7 +175,7 @@
         </script>
         
         <!-- Фильтры журнала счетов -->
-        <div class="bg-white border rounded shadow px-4 py-4 mb-5">
+        <div class="bg-white border rounded shadow px-4 py-4 mb-2">
             <div class="font-bold text-lg mb-3">Журнал счетов</div>
             <div class="flex flex-wrap gap-4 items-center mb-3">
                 <div class="flex items-center">
@@ -197,53 +197,70 @@
                 <button class="bg-[#337AB7] hover:bg-[#23527c] text-white font-semibold px-4 py-2 rounded text-[15px] flex items-center gap-2 ml-2">
                     <i class="bi bi-funnel"></i> Фильтр
                 </button>
-                <button class="bg-red-600 hover:bg-red-700 text-white font-semibold px-4 py-2 rounded text-[14px] ml-2">
-                    + ВЫПИСАТЬ НОВЫЙ СЧЁТ
-                </button>
             </div>
+        </div>
+        <!-- Кнопка ВЫПИСАТЬ НОВЫЙ СЧЁТ внизу -->
+        <div class="flex justify-start mb-4">
+            <button class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded text-[15px]">
+                + ВЫПИСАТЬ НОВЫЙ СЧЁТ
+            </button>
         </div>
 
         <!-- Таблица счетов -->
-        <div class="overflow-auto bg-white shadow rounded">
-            <table class="w-full text-sm text-left border border-gray-200">
-                <thead class="bg-blue-50 text-xs uppercase">
-                    <tr>
-                        <th class="p-2 border text-center">#</th>
-                        <th class="p-2 border">Создал<br>№, дата</th>
-                        <th class="p-2 border">Организация</th>
-                        <th class="p-2 border">Договор</th>
-                        <th class="p-2 border">ЮЛ</th>
-                        <th class="p-2 border">Позиции</th>
-                        <th class="p-2 border">Кол-во</th>
-                        <th class="p-2 border">Сумма</th>
-                        <th class="p-2 border">Комментарий</th>
-                        <th class="p-2 border"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="p-2 border text-center">1</td>
-                        <td class="p-2 border">
-                            <div class="flex items-center gap-2">
-                                <img src="https://via.placeholder.com/28" class="w-7 h-7 rounded-full">
-                                <div>
-                                    <div class="font-semibold">№701 от<br>27.06.2025</div>
+            <div class="overflow-auto bg-white shadow rounded">
+                <table class="w-full text-sm text-left border border-gray-200">
+                    <thead class="bg-blue-50 text-xs uppercase">
+                        <tr>
+                            <th class="p-2 border text-center">#</th>
+                            <th class="p-2 border text-center text-[10px] whitespace-nowrap">Создал №, дата</th>
+                            <th class="p-2 border text-center text-[10px]">Организация</th>
+                            <th class="p-2 border text-center text-[10px]">Договор</th>
+                            <th class="p-2 border text-center text-[10px]">ЮЛ</th>
+                            <th class="p-2 border text-center text-[10px]">Позиции</th>
+                            <th class="p-2 border text-center text-[10px] whitespace-nowrap">Кол-во</th>
+                            <th class="p-2 border text-center min-w-[110px] text-[10px]">Сумма</th>
+                            <th class="p-2 border text-center text-[10px]">Комментарий</th>
+                            <th class="p-2 border text-center text-[10px]"></th>
+                            <th class="p-2 border text-center w-6 text-[10px]"></th> <!-- Столбец для крестика -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="p-2 border text-center">1</td>
+                            <td class="p-2 border">
+                                <div class="flex items-center gap-2">
+                                    <img src="https://via.placeholder.com/28" class="w-7 h-7 rounded-full">
+                                    <div>
+                                        <div class="font-semibold">№701 от<br>27.06.2025</div>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                        <td class="p-2 border">ООО «Стройсервис»</td>
-                        <td class="p-2 border">105<br>без НДС</td>
-                        <td class="p-2 border">ООО «СмартСтрой»</td>
-                        <td class="p-2 border text-center">1</td>
-                        <td class="p-2 border text-center">1</td>
-                        <td class="p-2 border text-right">39 416.00</td>
-                        <td class="p-2 border">счёт создан на основании Расписки 19890</td>
-                        <td class="p-2 border text-center align-middle">
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-3 py-1 rounded text-xs mb-1">ПРАВКА</button>
-                            <button class="bg-green-500 hover:bg-green-600 text-white font-semibold px-3 py-1 rounded text-xs mb-1">ПЕЧАТЬ</button>
-                            <button class="bg-red-600 hover:bg-red-700 text-white font-semibold px-3 py-1 rounded text-xs mb-1">СЧЁТ НА ОСНОВАНИИ</button>
-                        </td>
-                    </tr>
+                            </td>
+                            <td class="p-2 border">ООО «Стройсервис»</td>
+                            <td class="p-2 border">105<br>без НДС</td>
+                            <td class="p-2 border">ООО «СмартСтрой»</td>
+                            <td class="p-2 border text-center">1</td>
+                            <td class="p-2 border text-center">1</td>
+                            <td class="p-2 border text-right">39 416.00</td>
+                            <td class="p-2 border">счёт создан на основании Расписки 19890</td>
+                            <td class="p-2 border text-center align-middle">
+                                <div class="flex flex-col items-center gap-1">
+                                    <div class="flex gap-2">
+                                        <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold w-[90px] h-[28px] rounded text-xs flex items-center justify-center">
+                                            <i class="bi bi-pencil-square mr-1"></i>ПРАВКА
+                                        </button>
+                                        <button class="bg-green-500 hover:bg-green-600 text-white font-semibold w-[90px] h-[28px] rounded text-xs flex items-center justify-center">
+                                            <i class="bi bi-printer mr-1"></i>ПЕЧАТЬ
+                                        </button>
+                                    </div>
+                                    <button class="bg-red-600 hover:bg-red-700 text-white font-semibold w-[188px] h-[28px] rounded text-xs flex items-center justify-center mt-1">
+                                        <i class="bi bi-file-earmark-plus mr-1"></i>СЧЁТ НА ОСНОВАНИИ
+                                    </button>
+                                </div>
+                            </td>
+                            <td class="p-2 border text-center align-middle">
+                                <i class="bi bi-x-circle text-gray-400 hover:text-red-600 cursor-pointer text-lg"></i>
+                            </td>
+                        </tr>
                     <tr>
                         <td class="p-2 border text-center">2</td>
                         <td class="p-2 border">
@@ -262,9 +279,22 @@
                         <td class="p-2 border text-right">19 976.00</td>
                         <td class="p-2 border">счёт создан на основании Расписки 27476</td>
                         <td class="p-2 border text-center align-middle">
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-3 py-1 rounded text-xs mb-1">ПРАВКА</button>
-                            <button class="bg-green-500 hover:bg-green-600 text-white font-semibold px-3 py-1 rounded text-xs mb-1">ПЕЧАТЬ</button>
-                            <button class="bg-red-600 hover:bg-red-700 text-white font-semibold px-3 py-1 rounded text-xs mb-1">СЧЁТ НА ОСНОВАНИИ</button>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="flex gap-2">
+                                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold w-[90px] h-[28px] rounded text-xs flex items-center justify-center">
+                                        <i class="bi bi-pencil-square mr-1"></i>ПРАВКА
+                                    </button>
+                                    <button class="bg-green-500 hover:bg-green-600 text-white font-semibold w-[90px] h-[28px] rounded text-xs flex items-center justify-center">
+                                       <i class="bi bi-printer mr-1"></i>ПЕЧАТЬ
+                                    </button>
+                                </div>
+                                <button class="bg-red-600 hover:bg-red-700 text-white font-semibold w-[188px] h-[28px] rounded text-xs flex items-center justify-center mt-1">
+                                    <i class="bi bi-file-earmark-plus mr-1"></i>СЧЁТ НА ОСНОВАНИИ
+                                </button>
+                            </div>
+                        </td>
+                        <td class="p-2 border text-center align-middle">
+                            <i class="bi bi-x-circle text-gray-400 hover:text-red-600 cursor-pointer text-lg"></i>
                         </td>
                     </tr>
                     <tr>
@@ -285,9 +315,22 @@
                         <td class="p-2 border text-right">13 560.00</td>
                         <td class="p-2 border">счёт создан на основании Расписки 25529</td>
                         <td class="p-2 border text-center align-middle">
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-3 py-1 rounded text-xs mb-1">ПРАВКА</button>
-                            <button class="bg-green-500 hover:bg-green-600 text-white font-semibold px-3 py-1 rounded text-xs mb-1">ПЕЧАТЬ</button>
-                            <button class="bg-red-600 hover:bg-red-700 text-white font-semibold px-3 py-1 rounded text-xs mb-1">СЧЁТ НА ОСНОВАНИИ</button>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="flex gap-2">
+                                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold w-[90px] h-[28px] rounded text-xs flex items-center justify-center">
+                                        <i class="bi bi-pencil-square mr-1"></i>ПРАВКА
+                                    </button>
+                                    <button class="bg-green-500 hover:bg-green-600 text-white font-semibold w-[90px] h-[28px] rounded text-xs flex items-center justify-center">
+                                       <i class="bi bi-printer mr-1"></i>ПЕЧАТЬ
+                                    </button>
+                                </div>
+                                <button class="bg-red-600 hover:bg-red-700 text-white font-semibold w-[188px] h-[28px] rounded text-xs flex items-center justify-center mt-1">
+                                    <i class="bi bi-file-earmark-plus mr-1"></i>СЧЁТ НА ОСНОВАНИИ
+                                </button>
+                            </div>
+                        </td>
+                        <td class="p-2 border text-center align-middle">
+                            <i class="bi bi-x-circle text-gray-400 hover:text-red-600 cursor-pointer text-lg"></i>
                         </td>
                     </tr>
                     <tr>
@@ -308,9 +351,22 @@
                         <td class="p-2 border text-right">10 350.00</td>
                         <td class="p-2 border">счёт создан на основании Расписки 27231</td>
                         <td class="p-2 border text-center align-middle">
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-3 py-1 rounded text-xs mb-1">ПРАВКА</button>
-                            <button class="bg-green-500 hover:bg-green-600 text-white font-semibold px-3 py-1 rounded text-xs mb-1">ПЕЧАТЬ</button>
-                            <button class="bg-red-600 hover:bg-red-700 text-white font-semibold px-3 py-1 rounded text-xs mb-1">СЧЁТ НА ОСНОВАНИИ</button>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="flex gap-2">
+                                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold w-[90px] h-[28px] rounded text-xs flex items-center justify-center">
+                                        <i class="bi bi-pencil-square mr-1"></i>ПРАВКА
+                                    </button>
+                                    <button class="bg-green-500 hover:bg-green-600 text-white font-semibold w-[90px] h-[28px] rounded text-xs flex items-center justify-center">
+                                       <i class="bi bi-printer mr-1"></i>ПЕЧАТЬ
+                                    </button>
+                                </div>
+                                <button class="bg-red-600 hover:bg-red-700 text-white font-semibold w-[188px] h-[28px] rounded text-xs flex items-center justify-center mt-1">
+                                    <i class="bi bi-file-earmark-plus mr-1"></i>СЧЁТ НА ОСНОВАНИИ
+                                </button>
+                            </div>
+                        </td>
+                        <td class="p-2 border text-center align-middle">
+                            <i class="bi bi-x-circle text-gray-400 hover:text-red-600 cursor-pointer text-lg"></i>
                         </td>
                     </tr>
                     <tr>
@@ -331,25 +387,38 @@
                         <td class="p-2 border text-right">33 700.00</td>
                         <td class="p-2 border">счёт создан на основании Счёта 658</td>
                         <td class="p-2 border text-center align-middle">
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-3 py-1 rounded text-xs mb-1">ПРАВКА</button>
-                            <button class="bg-green-500 hover:bg-green-600 text-white font-semibold px-3 py-1 rounded text-xs mb-1">ПЕЧАТЬ</button>
-                            <button class="bg-red-600 hover:bg-red-700 text-white font-semibold px-3 py-1 rounded text-xs mb-1">СЧЁТ НА ОСНОВАНИИ</button>
+                            <div class="flex flex-col items-center gap-1">
+                                <div class="flex gap-2">
+                                    <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold w-[90px] h-[28px] rounded text-xs flex items-center justify-center">
+                                        <i class="bi bi-pencil-square mr-1"></i>ПРАВКА
+                                    </button>
+                                    <button class="bg-green-500 hover:bg-green-600 text-white font-semibold w-[90px] h-[28px] rounded text-xs flex items-center justify-center">
+                                       <i class="bi bi-printer mr-1"></i>ПЕЧАТЬ
+                                    </button>
+                                </div>
+                                <button class="bg-red-600 hover:bg-red-700 text-white font-semibold w-[188px] h-[28px] rounded text-xs flex items-center justify-center mt-1">
+                                    <i class="bi bi-file-earmark-plus mr-1"></i>СЧЁТ НА ОСНОВАНИИ
+                                </button>
+                            </div>
+                        </td>
+                        <td class="p-2 border text-center align-middle">
+                            <i class="bi bi-x-circle text-gray-400 hover:text-red-600 cursor-pointer text-lg"></i>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <!-- Пагинация и выбор количества строк (визуально) -->
-            <div class="flex justify-between items-center p-2">
-                <div>
-                    <button class="text-blue-600 font-semibold mr-2">Назад</button>
+            <!-- Пагинация и выбор количества строк -->
+            <div class="flex justify-center items-center p-2 gap-8 flex-wrap">
+                <div class="flex items-center gap-2">
+                    <button class="text-blue-600 font-semibold">Назад</button>
                     <span class="text-gray-700">1</span>
-                    <button class="text-blue-600 font-semibold ml-2">2</button>
-                    <button class="text-blue-600 font-semibold ml-2">3</button>
-                    <button class="text-blue-600 font-semibold ml-2">Вперёд</button>
+                    <button class="text-blue-600 font-semibold">2</button>
+                    <button class="text-blue-600 font-semibold">3</button>
+                    <button class="text-blue-600 font-semibold">Вперёд</button>
                 </div>
-                <div class="flex items-center">
-                    <span class="mr-2">На странице:</span>
-                    <select class="border rounded p-1 text-sm">
+                <div class="flex items-center gap-2 min-w-[175px] ml-4">
+                    <span>На странице:</span>
+                    <select class="border rounded p-1 text-sm w-[64px]">
                         <option>5</option>
                         <option>10</option>
                         <option>20</option>

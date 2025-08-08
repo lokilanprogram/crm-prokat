@@ -295,7 +295,7 @@ Route::get('/forgot-password', function () {
 Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:superadmin'])->group(function () {
     Route::resource('users', UserController::class);
 });
 

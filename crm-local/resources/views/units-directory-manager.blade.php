@@ -48,7 +48,7 @@
                 <div class="flex flex-col items-center">
                     <i class="bi bi-credit-card text-3xl text-gray-800 mb-2"></i>
                     <span class="text-lg font-semibold">
-                        Касса: <span class="text-xl font-bold">33&nbsp;866.4&nbsp;<span class="text-gray-600">р.</span></span>
+                    <span class="text-lg font-semibold">Касса: <span class="text-xl font-bold">33&nbsp;866.4&nbsp;<span class="text-gray-600">₽</span></span></span>
                     </span>
                 </div>
             </div>

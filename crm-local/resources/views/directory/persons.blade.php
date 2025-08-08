@@ -675,31 +675,32 @@
     <!-- Модальное окно загрузки файла -->
     <div id="upload-file-modal" class="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center hidden z-50">
         <div class="bg-white rounded-xl shadow-xl border border-gray-300 relative" style="width: 500px; max-width: 100%;">
-            <div class="bg-[#337AB7] text-white text-sm font-semibold px-4 py-2 rounded-t-xl flex items-center justify-between mb-4">
+            <div class="bg-[#337AB7] text-white text-sm font-semibold px-4 py-2 rounded-t-xl flex items-center justify-between mb-2">
                 <span>Прикрепление файлов</span>
                 <button type="button"
                         onclick="document.getElementById('upload-file-modal').classList.add('hidden')"
                         class="text-white text-xl font-bold leading-none hover:text-gray-300 transition">&times;
                 </button>
             </div>
-            <form class="p-4">
-                <div class="mb-3">
-                    <label class="block text-sm font-semibold mb-1">Выберите файл</label>
+            <form class="p-3 pt-2">
+                <div class="mb-2">
                     <input type="file" class="border rounded px-2 py-1 text-sm w-full" />
                 </div>
-                <div class="mb-3">
+                <div class="mb-2">
                     <textarea
                         rows="3"
                         class="border rounded px-2 py-1 text-sm w-full"
                         placeholder="введите описание файла"
                     ></textarea>
                 </div>
-                <div class="text-right text-xs text-gray-500 mb-2">
-                    <span class="text-red-600">Максимальный размер изображения: 400 Кб</span><br>
-                    <span class="text-red-600">Максимальный размер файла: 700 Кб</span>
-                </div>
-                <div class="flex justify-start">
-                    <button type="submit" class="bg-[#337AB7] text-white px-4 py-2 rounded text-sm font-semibold">ЗАГРУЗИТЬ ФАЙЛ</button>
+                <div class="flex items-center justify-between mt-1 mb-1">
+                    <button type="submit" class="bg-[#337AB7] text-white px-4 py-2 rounded text-sm font-semibold mr-4 whitespace-nowrap">
+                        ЗАГРУЗИТЬ ФАЙЛ
+                    </button>
+                    <div class="text-xs text-gray-500 text-right">
+                        <div class="text-red-600">Максимальный размер изображения: 400 Кб</div>
+                        <div class="text-red-600">Максимальный размер файла: 700 Кб</div>
+                    </div>
                 </div>
             </form>
         </div>

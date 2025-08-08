@@ -613,8 +613,14 @@
                     <input type="text" placeholder="" class="border rounded flex-1 px-2 py-1 text-sm" />
                 </div>
                 <div class="flex items-center gap-3 mb-3">
-                    <label class="block text-sm w-[160px]">Активность</label>
-                    <input type="checkbox" class="h-5 w-5 border rounded" />
+                    <label class="flex items-center gap-2 cursor-pointer select-none">
+                        <span class="block text-sm w-[160px]">Активность</span>
+                        <span class="relative">
+                            <input type="checkbox" class="peer sr-only" checked>
+                            <span class="block w-11 h-6 bg-gray-200 rounded-full transition-colors duration-200 peer-checked:bg-[#337AB7]"></span>
+                            <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-5"></span>
+                        </span>
+                    </label>
                 </div>
                 <div class="flex justify-end gap-2 pt-3">
                     <button type="submit" class="bg-[#337AB7] text-white px-4 py-2 rounded text-sm font-semibold"><i class="bi bi-save"></i> СОХРАНИТЬ ИЗМЕНЕНИЯ</button>
@@ -653,8 +659,14 @@
                     <input type="text" value="бух учет" placeholder="" class="border rounded flex-1 px-2 py-1 text-sm" />
                 </div>
                 <div class="flex items-center gap-3 mb-3">
-                    <label class="block text-sm w-[160px]">Активность</label>
-                    <input type="checkbox" class="h-5 w-5 border rounded" checked />
+                    <label class="flex items-center gap-2 cursor-pointer select-none">
+                        <span class="block text-sm w-[160px]">Активность</span>
+                        <span class="relative">
+                            <input type="checkbox" class="peer sr-only" checked>
+                            <span class="block w-11 h-6 bg-gray-200 rounded-full transition-colors duration-200 peer-checked:bg-[#337AB7]"></span>
+                            <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-5"></span>
+                        </span>
+                    </label>
                 </div>
                 <div class="flex justify-end gap-2 pt-3">
                     <button type="submit" class="bg-[#337Ab7] text-white px-4 py-2 rounded text-sm font-semibold"><i class="bi bi-save"></i> СОХРАНИТЬ ИЗМЕНЕНИЯ</button>

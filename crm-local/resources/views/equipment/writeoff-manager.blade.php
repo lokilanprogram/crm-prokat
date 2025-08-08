@@ -14,6 +14,15 @@
     </span>
     </div>
 
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #d1d5db; /* тот же gray-300 */
+        }
+    </style>
+
     <main class="w-full px-2 sm:px-4 py-6 bg-[#ececec] min-h-screen">
 
         <!-- Панель пользователя + метрики -->
@@ -177,30 +186,31 @@
         <!-- Списанное оборудование -->
         <div class="bg-white border rounded shadow px-4 py-4 mb-5">
             <div class="font-bold text-lg mb-2">Списанное оборудование</div>
-            <div class="flex flex-wrap gap-4 items-end mb-3">
-                <div>
-                    <label class="text-[15px]">Дата списания:</label>
-                    <input type="date" value="2025-02-01" class="border rounded p-1 text-sm mr-1">
-                    <input type="date" value="2025-02-28" class="border rounded p-1 text-sm">
+            <!-- Фильтры -->
+                <div class="flex flex-wrap gap-4 items-end mb-3">
+                    <div>
+                        <label class="text-[15px]">Дата списания:</label>
+                        <input type="date" value="2025-02-01" class="border rounded p-1 text-sm mr-1 min-w-[140px]">
+                        <input type="date" value="2025-02-28" class="border rounded p-1 text-sm min-w-[140px]">
+                    </div>
+                    <div>
+                        <label class="text-[15px]">Артикул</label>
+                        <input type="text" class="border rounded p-1 text-sm min-w-[140px]" placeholder="Артикул оборудования">
+                    </div>
+                    <div>
+                        <label class="text-[15px]">Категория</label>
+                        <select class="border rounded p-1 text-sm min-w-[140px]">
+                            <option>Не выбрано</option>
+                            <option>Лестницы</option>
+                            <option>Бурильное</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-[15px]">Наименование</label>
+                        <input type="text" class="border rounded p-1 text-sm min-w-[140px]" placeholder="Название оборудования">
+                    </div>
+                    <button class="bg-[#337AB7] hover:bg-[#23527c] text-white font-semibold px-3 py-2 rounded text-[15px] ml-2 flex-shrink-0">Получить данные</button>
                 </div>
-                <div>
-                    <label class="text-[15px]">Артикул</label>
-                    <input type="text" class="border rounded p-1 text-sm" placeholder="Артикул оборудования">
-                </div>
-                <div>
-                    <label class="text-[15px]">Категория</label>
-                    <select class="border rounded p-1 text-sm">
-                        <option>Не выбрано</option>
-                        <option>Лестницы</option>
-                        <option>Бурильное</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-[15px]">Наименование</label>
-                    <input type="text" class="border rounded p-1 text-sm" placeholder="Название оборудования">
-                </div>
-                <button class="bg-[#337AB7] hover:bg-[#23527c] text-white font-semibold px-3 py-2 rounded text-[15px] ml-2">Получить данные</button>
-            </div>
         </div>
 
         <!-- Таблица списанного оборудования -->
@@ -208,18 +218,18 @@
             <table class="w-full text-sm text-left border border-gray-200">
                 <thead class="bg-blue-50 text-xs uppercase">
                     <tr>
-                        <th class="p-2 border">№ п.п.</th>
-                        <th class="p-2 border">Причина списания</th>
-                        <th class="p-2 border">Оборудование</th>
-                        <th class="p-2 border">Дата покупки</th>
-                        <th class="p-2 border">Дата списания</th>
-                        <th class="p-2 border">Сумма покупки</th>
-                        <th class="p-2 border">Стоимость ремонтов</th>
-                        <th class="p-2 border">Кол-во прокатов</th>
-                        <th class="p-2 border">Стоимость прокатов</th>
-                        <th class="p-2 border">Окупаемость</th>
-                        <th class="p-2 border">Кто списал</th>
-                        <th class="p-2 border">Комментарий</th>
+                        <th class="p-2 border text-center">№ п.п.</th>
+                        <th class="p-2 border text-center">Причина списания</th>
+                        <th class="p-2 border text-center">Оборудование</th>
+                        <th class="p-2 border text-center">Дата покупки</th>
+                        <th class="p-2 border text-center">Дата списания</th>
+                        <th class="p-2 border text-center">Сумма покупки</th>
+                        <th class="p-2 border text-center">Стоимость ремонтов</th>
+                        <th class="p-2 border text-center">Кол-во прокатов</th>
+                        <th class="p-2 border text-center">Стоимость прокатов</th>
+                        <th class="p-2 border text-center">Окупаемость</th>
+                        <th class="p-2 border text-center">Кто списал</th>
+                        <th class="p-2 border text-center">Комментарий</th>
                         <th class="p-2 border text-center" style="width:40px;"> </th>
                     </tr>
                 </thead>
@@ -227,7 +237,21 @@
                     <tr class="border-b">
                         <td class="p-2 text-center">1</td>
                         <td class="p-2 text-center">Потеряно</td>
-                        <td class="p-2 text-xs">4423<br>ЛЕСТНИЦА ТРЕХСЕКЦИОННАЯ 11 СТУПЕНЕЙ</td>
+                        <td class="p-2 border border-gray-300 align-middle">
+                            <div class="relative flex min-h-[44px]">
+                                <!-- Вертикальная линия -->
+                                <div class="absolute left-[60px] top-0 bottom-0 w-px bg-gray-200"></div>
+                                <!-- Артикул -->
+                                <div class="w-[60px] pr-3 font-medium text-gray-800 text-right text-xs flex-shrink-0 flex items-center justify-end z-10">
+                                    4423
+                                </div>
+                                <!-- Наименование -->
+                                <div class="pl-3 text-gray-700 text-xs flex h-full items-center align-center">
+                                    ЛЕСТНИЦА ТРЕХСЕКЦИОННАЯ 11 СТУПЕНЕЙ
+                                </div>
+                            </div>
+                        </td>
+
                         <td class="p-2 text-center">01.11.2019</td>
                         <td class="p-2 text-center">10.02.2025</td>
                         <td class="p-2 text-center">10 000.00</td>
@@ -246,7 +270,20 @@
                     <tr class="border-b">
                         <td class="p-2 text-center">2</td>
                         <td class="p-2 text-center">Потеряно</td>
-                        <td class="p-2 text-xs">4884<br>ЛЕСТНИЦА 12 СТУПЕНЕЙ</td>
+                        <td class="p-2 border border-gray-300 align-middle">
+                            <div class="relative flex min-h-[44px] items-center w-full">
+                                <!-- Вертикальная линия -->
+                                <div class="absolute left-[60px] top-0 bottom-0 w-px bg-gray-200"></div>
+                                <!-- Артикул -->
+                                <div class="w-[60px] pr-3 font-medium text-gray-800 text-right text-xs flex-shrink-0 flex items-center justify-end z-10 h-full">
+                                    4884
+                                </div>
+                                <!-- Наименование -->
+                                <div class="pl-3 text-gray-700 text-xs flex-1 flex items-center h-full">
+                                    ЛЕСТНИЦА 12 СТУПЕНЕЙ
+                                </div>
+                            </div>
+                        </td>
                         <td class="p-2 text-center">03.08.2022</td>
                         <td class="p-2 text-center">10.02.2025</td>
                         <td class="p-2 text-center">10 000.00</td>
@@ -265,7 +302,21 @@
                     <tr class="border-b">
                         <td class="p-2 text-center">3</td>
                         <td class="p-2 text-center">Потеряно</td>
-                        <td class="p-2 text-xs">4424<br>ЛЕСТНИЦА ТРЕХСЕКЦИОННАЯ 11</td>
+                        <td class="p-2 border border-gray-300 align-middle">
+                            <div class="relative flex min-h-[44px] items-center w-full">
+                                <!-- Вертикальная линия -->
+                                <div class="absolute left-[60px] top-0 bottom-0 w-px bg-gray-200"></div>
+                                <!-- Артикул -->
+                                <div class="w-[60px] pr-3 font-medium text-gray-800 text-right text-xs flex-shrink-0 flex items-center justify-end z-10 h-full">
+                                    4424
+                                </div>
+                                <!-- Наименование -->
+                                <div class="pl-3 text-gray-700 text-xs flex-1 flex items-center h-full">
+                                    ЛЕСТНИЦА ТРЕХСЕКЦИОННАЯ 11
+                                </div>
+                            </div>
+                        </td>
+                        <!-- <td class="p-2 text-xs">4424<br>ЛЕСТНИЦА ТРЕХСЕКЦИОННАЯ 11</td> -->
                         <td class="p-2 text-center">13.11.2021</td>
                         <td class="p-2 text-center">10.02.2025</td>
                         <td class="p-2 text-center">10 000.00</td>
@@ -284,7 +335,21 @@
                     <tr>
                         <td class="p-2 text-center">4</td>
                         <td class="p-2 text-center">Потеряно</td>
-                        <td class="p-2 text-xs">4463<br>ЛЕСТНИЦА ТРЕХСЕКЦИОННАЯ 12 СТУПЕНЕЙ</td>
+                        <td class="p-2 border border-gray-300 align-middle">
+                            <div class="relative flex min-h-[44px] items-center w-full">
+                                <!-- Вертикальная линия -->
+                                <div class="absolute left-[60px] top-0 bottom-0 w-px bg-gray-200"></div>
+                                <!-- Артикул -->
+                                <div class="w-[60px] pr-3 font-medium text-gray-800 text-right text-xs flex-shrink-0 flex items-center justify-end z-10 h-full">
+                                    4463
+                                </div>
+                                <!-- Наименование -->
+                                <div class="pl-3 text-gray-700 text-xs flex-1 flex items-center h-full">
+                                    ЛЕСТНИЦА ТРЕХСЕКЦИОННАЯ 12 СТУПЕНЕЙ
+                                </div>
+                            </div>
+                        </td>
+                        <!-- <td class="p-2 text-xs">4463<br>ЛЕСТНИЦА ТРЕХСЕКЦИОННАЯ 12 СТУПЕНЕЙ</td> -->
                         <td class="p-2 text-center">16.11.2021</td>
                         <td class="p-2 text-center">10.02.2025</td>
                         <td class="p-2 text-center">10 000.00</td>

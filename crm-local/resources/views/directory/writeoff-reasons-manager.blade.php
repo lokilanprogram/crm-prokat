@@ -15,6 +15,15 @@
     </span>
     </div>
 
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #d1d5db; /* тот же gray-300 */
+        }
+    </style>
+
     <main class="w-full px-2 sm:px-4 py-6">
         <!-- Панель пользователя + метрики -->
         <div class="bg-gray-200 rounded-xl p-4 mb-6 flex items-center justify-between">

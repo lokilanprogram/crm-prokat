@@ -27,7 +27,7 @@ Route::middleware('auth:api')->group(function () {
 });
 
 // Группа для справочников (только администраторы и менеджеры)
-Route::middleware(['auth:api', 'role:admin,manager'])->prefix('dictionaries')->group(function () {
+Route::middleware(['auth:api', 'role:superadmin,manager'])->prefix('dictionaries')->group(function () {
     // Единицы измерения
     Route::get('units', [UnitController::class, 'index']);
     Route::get('units/{id}', [UnitController::class, 'show']);

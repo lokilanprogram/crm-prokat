@@ -316,7 +316,7 @@
                 @click.self="showChekModal = false"
             >
                 <div
-                    class="bg-white rounded-xl shadow-2xl w-[1100px] max-w-[98vw] border border-gray-300 flex flex-col overflow-visible"
+                    class="bg-white rounded-xl shadow-2xl w-[600px] max-w-[98vw] border border-gray-300 flex flex-col overflow-visible"
                     @click.stop
                 >
                     <!-- Шапка -->
@@ -330,35 +330,66 @@
                     </div>
                     <!-- Форма -->
                     <div class="px-5 py-4">
-                        <div class="grid grid-cols-2 gap-x-4 gap-y-3 mb-4">
-                            <div class="flex items-center text-[15px]">Дата продажи</div>
-                            <div>
-                                <input type="date" value="2025-02-17" class="border rounded px-2 py-1 w-full text-base" />
+                        <div class="flex flex-col gap-2">
+                            <!-- Дата продажи -->
+                            <div class="flex items-center">
+                                <label class="text-gray-800 text-[15px] w-[120px] flex-shrink-0">Дата продажи</label>
+                                <input type="date"
+                                    value="2025-02-17"
+                                    class="border rounded px-2 py-1 text-base flex-1 max-w-full" />
                             </div>
-                            <div class="flex items-center text-[15px]">Организация</div>
-                            <div>
-                                <select class="border rounded px-2 py-1 w-full text-base">
-                                    <option>ООО «Стройсервис»</option>
-                                </select>
+                            <!-- Организация -->
+                            <div class="flex items-center">
+                                <label class="text-gray-800 text-[15px] w-[120px] flex-shrink-0">Организация</label>
+                                <div class="relative flex-1 max-w-full">
+                                    <select class="border rounded px-2 py-1 text-base w-full pr-14">
+                                        <option>ООО «Стройсервис»</option>
+                                    </select>
+                                    <!-- Крестик (закрыть/очистить) -->
+                                    <button type="button"
+                                        class="absolute right-10 top-1/2 -translate-y-[54%] text-gray-400 hover:text-red-500 text-2xl"
+                                        @click="/* твой хендлер очистки/закрытия */">
+                                        &times;
+                                    </button>
+                                    <!-- Оставляем стандартную стрелку select -->
+                                </div>
                             </div>
-                            <div class="flex items-center text-[15px]">Филиал</div>
-                            <div>
-                                <select class="border rounded px-2 py-1 w-full text-base">
-                                    <option>Светлая 42</option>
-                                </select>
+                            <!-- Филиал -->
+                            <div class="flex items-center">
+                                <label class="text-gray-800 text-[15px] w-[120px] flex-shrink-0">Филиал</label>
+                                <div class="relative flex-1 max-w-full">
+                                    <select class="border rounded px-2 py-1 text-base w-full pr-14">
+                                        <option>Светлая 42</option>
+                                    </select>
+                                    <button type="button"
+                                        class="absolute right-10 top-1/2 -translate-y-[54%] text-gray-400 hover:text-red-500 text-2xl"
+                                        @click="/* твой хендлер очистки/закрытия */">
+                                        &times;
+                                    </button>
+                                </div>
                             </div>
-                            <div class="flex items-center text-[15px]">Склад</div>
-                            <div>
-                                <select class="border rounded px-2 py-1 w-full text-base">
-                                    <option>Не выбрано</option>
-                                    <option>Товары основной</option>
-                                </select>
+                            <!-- Склад -->
+                            <div class="flex items-center">
+                                <label class="text-gray-800 text-[15px] w-[120px] flex-shrink-0">Склад</label>
+                                <div class="relative flex-1 max-w-full">
+                                    <select class="border rounded px-2 py-1 text-base w-full pr-14">
+                                        <option>Не выбрано</option>
+                                        <option>Товары основной</option>
+                                    </select>
+                                    <button type="button"
+                                        class="absolute right-10 top-1/2 -translate-y-[54%] text-gray-400 hover:text-red-500 text-2xl"
+                                        @click="/* твой хендлер очистки/закрытия */">
+                                        &times;
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <!-- Кнопки -->
-                        <div class="flex gap-2">
+                        <div class="flex gap-2 justify-end mt-4">
                             <button class="bg-blue-500 text-white font-semibold text-[15px] px-3 py-1 rounded border border-blue-700 opacity-60 cursor-not-allowed" disabled>+ ПОДБОР ТОВАРОВ</button>
-                            <button class="bg-green-500 text-white font-semibold text-[15px] px-3 py-1 rounded border border-green-700 opacity-60 cursor-not-allowed" disabled><i class="bi bi-save"></i> СОХРАНИТЬ</button>
+                            <button class="bg-green-500 text-white font-semibold text-[15px] px-3 py-1 rounded border border-green-700 opacity-60 cursor-not-allowed" disabled>
+                                <i class="bi bi-save"></i> СОХРАНИТЬ
+                            </button>
                             <button class="bg-red-500 text-white font-semibold text-[15px] px-3 py-1 rounded border border-red-700 hover:bg-red-600 transition" @click="showChekModal = false">ЗАКРЫТЬ</button>
                         </div>
                     </div>

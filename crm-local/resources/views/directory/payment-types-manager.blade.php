@@ -190,24 +190,38 @@
 
         <!-- Таблица -->
         <div class="overflow-auto rounded border bg-white">
-            <table class="w-full text-sm">
+            <table class="w-full text-sm border-collapse">
                 <thead class="bg-blue-50 text-xs uppercase">
                     <tr>
-                        <th class="p-2">Цвет</th>
-                        <th class="p-2">Наименование</th>
-                        <th class="p-2">Комментарий</th>
-                        <th class="p-2">Изображение</th>
-                        <th class="p-2 text-center"></th>
+                        <th class="p-2 border-b border-gray-200 border-r border-gray-200">Цвет</th>
+                        <th class="p-2 border-b border-gray-200 border-r border-gray-200">Наименование</th>
+                        <th class="p-2 border-b border-gray-200 border-r border-gray-200">Комментарий</th>
+                        <th class="p-2 border-b border-gray-200 border-r border-gray-200">Изображение</th>
+                        <th class="p-2 border-b border-gray-200 text-center border-r border-gray-200"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="p-2 text-center"><span class="bg-green-600 text-white px-2 py-1 rounded text-xs">нал</span></td>
-                        <td class="p-2">Наличные</td>
-                        <td class="p-2">Оплата наличными</td>
-                        <td class="p-2">нет данных</td>
+                    <tr class="border-b border-gray-100">
+                        <td class="p-2 text-center border-r border-gray-100">
+                            <span class="bg-green-600 text-white px-2 py-1 rounded text-xs">нал</span>
+                        </td>
+                        <td class="p-2 border-r border-gray-100">Наличные</td>
+                        <td class="p-2 border-r border-gray-100">Оплата наличными</td>
+                        <td class="p-2 border-r border-gray-100">нет данных</td>
                         <td class="p-2 text-center">
                             <i class="bi bi-pencil cursor-pointer" onclick="document.getElementById('edit-payment-modal').classList.remove('hidden')"></i>
+                        </td>
+                    </tr>
+                    <!-- Следующая строка -->
+                    <tr class="border-b border-gray-100">
+                        <td class="p-2 text-center border-r border-gray-100">
+                            <span class="bg-yellow-500 text-white px-2 py-1 rounded text-xs">карта</span>
+                        </td>
+                        <td class="p-2 border-r border-gray-100">Карта</td>
+                        <td class="p-2 border-r border-gray-100">Оплата по карте</td>
+                        <td class="p-2 border-r border-gray-100">нет данных</td>
+                        <td class="p-2 text-center">
+                            <i class="bi bi-pencil cursor-pointer"></i>
                         </td>
                     </tr>
                 </tbody>
@@ -651,8 +665,14 @@
                     <input type="text" value="Оплата наличными" placeholder="Комментарий" class="border rounded flex-1 px-2 py-1 text-sm" />
                 </div>
                 <div class="flex items-center gap-3 mb-3">
-                    <label class="block text-sm w-[140px]">Видимость</label>
-                    <input type="checkbox" class="h-5 w-5 border rounded" checked />
+                    <label class="flex items-center gap-2 cursor-pointer select-none">
+                        <span class="block text-sm w-[140px]">Видимость</span>
+                        <span class="relative">
+                            <input type="checkbox" class="peer sr-only" checked>
+                            <span class="block w-11 h-6 bg-gray-200 rounded-full transition-colors duration-200 peer-checked:bg-[#337AB7]"></span>
+                            <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-5"></span>
+                        </span>
+                    </label>
                 </div>
                 <div class="flex justify-end gap-2 pt-3">
                     <button type="submit" class="bg-[#337AB7] text-white px-4 py-2 rounded text-sm font-semibold"><i class="bi bi-save"></i> СОХРАНИТЬ ИЗМЕНЕНИЯ</button>

@@ -195,26 +195,26 @@
 
         <!-- Таблица -->
         <div class="overflow-x-auto bg-white border border-gray-300 shadow-sm rounded">
-            <table class="w-full text-sm text-left table-fixed">
+            <table class="w-full text-sm text-left table-fixed border-collapse">
                 <thead class="bg-[#d9e5f2] text-[#1b376c] font-semibold">
                     <tr>
-                        <th class="border px-3 py-2 w-[60px]">№ п.п.</th>
-                        <th class="border px-3 py-2 w-[120px]">Видимость</th>
-                        <th class="border px-3 py-2">Наименование</th>
-                        <th class="border px-3 py-2">Комментарий</th>
-                        <th class="border px-3 py-2 w-[40px]"></th>
+                        <th class="border border-gray-300 px-3 py-2 w-[60px]">№ п.п.</th>
+                        <th class="border border-gray-300 px-3 py-2 w-[120px]">Видимость</th>
+                        <th class="border border-gray-300 px-3 py-2">Наименование</th>
+                        <th class="border border-gray-300 px-3 py-2">Комментарий</th>
+                        <th class="border border-gray-300 px-3 py-2 w-[40px]"></th>
                     </tr>
                 </thead>
                 <tbody class="text-sm">
                     @foreach(range(1, 13) as $i)
                         <tr class="even:bg-gray-50">
-                            <td class="border px-3 py-1 text-center">{{ $i }}</td>
-                            <td class="border px-3 py-1 text-center">
+                            <td class="border border-gray-300 px-3 py-1 text-center">{{ $i }}</td>
+                            <td class="border border-gray-300 px-3 py-1 text-center">
                                 <input type="checkbox" class="form-checkbox">
                             </td>
-                            <td class="border px-3 py-1">Товар {{ $i }}</td>
-                            <td class="border px-3 py-1"></td>
-                            <td class="border px-2 py-1 text-center">
+                            <td class="border border-gray-300 px-3 py-1">Товар {{ $i }}</td>
+                            <td class="border border-gray-300 px-3 py-1"></td>
+                            <td class="border border-gray-300 px-2 py-1 text-center">
                                 <i class="bi bi-pencil"></i>
                             </td>
                         </tr>
