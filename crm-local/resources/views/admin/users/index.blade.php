@@ -7,6 +7,15 @@
         </h2>
     </x-slot>
 
+    <div id="preload" style="
+        position:fixed;inset:0;z-index:999999;display:flex;
+        align-items:center;justify-content:center;
+        background:#f4f6fb;">
+    <span style="font-size:22px;color:#888;">
+        Загрузка...
+    </span>
+    </div>
+
     <main class="w-full px-2 sm:px-4 py-6 min-h-screen" x-data="{ showModal: false }">
 
         <!-- Панель пользователя + метрики -->
@@ -17,11 +26,10 @@
                     <div>
                         <div class="font-semibold text-xl">Бабинский Дмитрий</div>
                         <div class="text-base text-gray-700">Филиал: Светлая 42</div>
-                        <form>
-                            <button type="button" class="flex items-center gap-2 text-base text-gray-700 hover:text-red-600 mt-2">
-                                <i class="bi bi-box-arrow-right text-xl"></i> Выйти
-                            </button>
-                        </form>
+                        <button id="logout-btn" class="flex items-center gap-2 text-base text-gray-700 hover:text-red-600 mt-2">
+                            <i class="bi bi-box-arrow-right text-xl"></i>
+                            Выйти
+                        </button>
                     </div>
                 </div>
             </div>
@@ -463,10 +471,15 @@
                     </div>
                     <!-- Пароль -->
                     <div class="flex items-center mb-2">
-                    <label class="w-44 text-[14px] font-semibold text-gray-800"><span class="text-red-500">*</span> Пароль:</label>
-                    <input type="password" class="flex-1 border rounded px-2 py-1 text-[14px] mr-3" />
-                    <label class="w-52 text-[14px] font-semibold text-gray-800"><span class="text-red-500">*</span> Повторите пароль:</label>
-                    <input type="password" class="flex-1 border rounded px-2 py-1 text-[14px]" />
+                    <label class="w-44 text-[14px] font-semibold text-gray-800">
+                        <span class="text-red-500">*</span> Пароль:
+                    </label>
+                    <input type="password" class="flex-1 border rounded px-2 py-1 text-[14px] mr-2" />
+
+                    <label class="w-44 text-[14px] font-semibold text-gray-800">
+                        <span class="text-red-500">*</span> Повторите пароль:
+                    </label>
+                    <input type="password" class="flex-1 border rounded px-2 py-1 text-[14px]" /> 
                     </div>
                     <!-- Фамилия -->
                     <div class="flex items-center mb-2">
@@ -477,8 +490,8 @@
                     <div class="flex items-center mb-2">
                     <label class="w-44 text-[14px] font-semibold text-gray-800"><span class="text-red-500">*</span> Имя:</label>
                     <input type="text" class="flex-1 border rounded px-2 py-1 text-[14px] mr-3" placeholder="Имя сотрудника" />
-                    <label class="w-32 text-[14px] font-semibold text-gray-800">Отчество:</label>
-                    <input type="text" class="flex-1 border rounded px-2 py-1 text-[14px]" placeholder="Отчество сотрудника" />
+                    <label class="w-[80px] text-[13px] text-gray-800 font-semibold text-right mr-4">Отчество:</label>
+                    <input type="text" class="flex-1 border rounded px-2 py-1 text-[13px]" placeholder="Отчество сотрудника" />
                     </div>
 
                     <!-- Email -->
@@ -496,29 +509,38 @@
                     </div>
                     <!-- Подразделение, Должность -->
                     <div class="flex items-center mb-2">
-                    <label class="w-44 text-[13px] text-gray-800 font-semibold"><span class="text-red-500">*</span> Подразделение</label>
-                    <select class="flex-1 border rounded px-1.5 py-1 text-[13px] mr-2">
-                        <option>Не выбран</option>
-                        <option>Прокат</option>
-                        <option>Бухгалтерия</option>
-                    </select>
-                    <label class="w-28 text-[13px] text-gray-800 font-semibold"><span class="text-red-500">*</span> Должность</label>
-                    <select class="flex-1 border rounded px-1.5 py-1 text-[13px]">
-                        <option>Не выбрана</option>
-                        <option>Директор</option>
-                        <option>Менеджер</option>
-                        <option>Бухгалтер</option>
-                    </select>
+                        <label class="w-44 text-[13px] text-gray-800 font-semibold">
+                            <span class="text-red-500">*</span> Подразделение
+                        </label>
+                        <select class="flex-1 border rounded px-1.5 py-1 text-[13px] mr-2">
+                            <option>Не выбран</option>
+                            <option>Прокат</option>
+                            <option>Бухгалтерия</option>
+                        </select>
+                        <label class="w-28 text-[13px] text-gray-800 font-semibold ml-10">
+                            <span class="text-red-500">*</span> Должность
+                        </label>
+                        <select class="border rounded px-2 py-1 text-[13px] w-[230px]">
+                            <option>Не выбрана</option>
+                            <option>Директор</option>
+                            <option>Менеджер</option>
+                            <option>Бухгалтер</option>
+                        </select>
                     </div>
-                    <!-- Стоимость, Телефон, Карта -->
+
+                    <!-- Стоимость в час -->
                     <div class="flex items-center mb-2">
-                    <label class="w-44 text-[13px] text-gray-800 font-semibold">Стоимость в час:</label>
-                    <input type="number" class="flex-1 border rounded px-1.5 py-1 text-[13px] mr-2" placeholder="0">
-                    <label class="w-44 text-[13px] text-gray-800 font-semibold">Сотовый телефон:</label>
-                    <input type="text" class="flex-1 border rounded px-1.5 py-1 text-[13px] mr-2" placeholder="+7xxxxxxxxxx">
-                    <label class="w-44 text-[13px] text-gray-800 font-semibold">№ карты:</label>
-                    <input type="text" class="flex-1 border rounded px-1.5 py-1 text-[13px]" placeholder="">
+                        <label class="w-44 text-[13px] text-gray-800 font-semibold">Стоимость в час:</label>
+                        <input type="number" class="flex-1 border rounded px-2 py-1 text-[13px]" placeholder="0">
                     </div>
+                    <!-- Сотовый телефон и № карты на одной линии, выравнены по сетке -->
+                    <div class="flex items-center mb-2">
+                        <label class="w-44 text-[13px] text-gray-800 font-semibold">Сотовый телефон:</label>
+                        <input type="text" class="w-[240px] border rounded px-2 py-1 text-[13px] mr-2" placeholder="+7xxxxxxxxxx">
+                        <label class="w-[80px] text-[13px] text-gray-800 font-semibold text-right mr-4">№ карты:</label>
+                        <input type="text" class="flex-1 border rounded px-2 py-1 text-[13px]" placeholder="">
+                    </div>
+
                     <!-- Адрес -->
                     <div class="flex items-center mb-2">
                     <label class="w-44 text-[13px] text-gray-800 font-semibold">Адресные данные:</label>
@@ -530,16 +552,29 @@
                     <input type="text" class="flex-1 border rounded px-1.5 py-1 text-[13px]" placeholder="">
                     </div>
                     <!-- Чекбоксы -->
-                    <div class="flex items-center gap-4 mt-1.5 mb-2">
-                    <div class="flex items-center gap-2">
-                        <label class="text-[13px] text-gray-800">Учитывать в расписании:</label>
-                        <input type="checkbox" class="h-4 w-4 border-gray-300 rounded" checked>
+                    <div class="flex items-center gap-8 mt-1.5 mb-2">
+                        <!-- Переключатель 1 -->
+                        <label class="flex items-center gap-2 cursor-pointer select-none">
+                            <span class="text-[13px] text-gray-800">Учитывать в расписании:</span>
+                            <span class="relative">
+                                <input type="checkbox" class="peer sr-only" checked>
+                                <span class="block w-11 h-6 bg-gray-200 rounded-full transition-colors duration-200 peer-checked:bg-[#337AB7]"></span>
+                                <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-5"></span>
+                            </span>
+                        </label>
+
+                        <!-- Переключатель 2 -->
+                        <label class="flex items-center gap-2 cursor-pointer select-none">
+                            <span class="text-[13px] text-gray-800">Исполнитель услуг:</span>
+                            <span class="relative">
+                                <input type="checkbox" class="peer sr-only" checked>
+                                <span class="block w-11 h-6 bg-gray-200 rounded-full transition-colors duration-200 peer-checked:bg-[#337AB7]"></span>
+                                <span class="absolute left-1 top-1 w-4 h-4 bg-white rounded-full shadow transition-transform duration-200 peer-checked:translate-x-5"></span>
+                            </span>
+                        </label>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <label class="text-[13px] text-gray-800">Исполнитель услуг:</label>
-                        <input type="checkbox" class="h-4 w-4 border-gray-300 rounded">
-                    </div>
-                    </div>
+
+
                     <!-- Кнопка -->
                     <div class="flex items-center justify-center pt-2">
                     <button type="submit" class="bg-[#337AB7] hover:bg-blue-700 text-white font-semibold px-4 py-1.5 rounded text-[13px]">
@@ -567,26 +602,26 @@
                 </button>
             </div>
             <!-- Кнопки фильтров -->
-            <div class="flex flex-wrap gap-1 px-4 py-2 bg-white border-b">
-                <button class="bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-2 px-4 py-2 bg-white border-b">
+                <button class="bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-calendar-check"></i> ПРОКАТ СЕГОДНЯ
                 </button>
-                <button class="bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-exclamation-triangle"></i> НЕОПЛАЧЕННЫЕ
                 </button>
-                <button class="bg-red-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-red-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-counterclockwise"></i> НЕВОЗВРАЩЁННЫЕ
                 </button>
-                <button class="bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-left"></i> ВЕРНУТЬ СЕГОДНЯ
                 </button>
-                <button class="bg-green-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-green-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-cash-stack"></i> ПЕРЕПЛАТА
                 </button>
-                <button class="bg-blue-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-repeat"></i> ВОЗВРАЩЁННЫЕ
                 </button>
-                <button class="bg-blue-900 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-900 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-journal-x"></i> НЕЗАКРЫТЫЕ
                 </button>
             </div>
@@ -719,8 +754,11 @@
                             <i class="bi bi-person text-gray-700"></i>
                             <label class="w-36 text-[14px]">Клиент:</label>
                             <input type="text" class="border rounded p-1 flex-1 text-[14px]" placeholder="введите первые буквы...">
+                            <button type="button" @click="showProkat = false; showClientCard = true">
+                                <i class="bi bi-person-plus"></i>
+                            </button>
                             <button type="button"><i class="bi bi-search"></i></button>
-                            <button type="button"><i class="bi bi-person-plus"></i></button>
+
                         </div>
                         <!-- юр лицо -->
                         <div class="flex items-center gap-2">
@@ -908,4 +946,107 @@
 
     @endsection
     </main>
+    <script>
+    document.getElementById('logout-btn')?.addEventListener('click', async function() {
+        // Если у тебя есть /api/logout, можно вызвать, если нет — просто очищай localStorage
+        const token = localStorage.getItem('token');
+        if (token) {
+            // Если api/logout не реализован — этот кусок можно удалить или закомментить
+            try {
+                await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            } catch (e) {
+                // Можно ничего не делать, сервер не обязателен для SPA-логаута
+            }
+        }
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+    });
+    </script>
+    <script>
+    (async function() {
+        // 1. Проверка токена
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        // 2. Получаем пользователя
+        let user;
+        try {
+            const res = await fetch('/api/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error('Не авторизован');
+            user = await res.json();
+        } catch {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        // 3. Доступен только для role == 'superadmin'
+        if (user.role !== 'superadmin') {
+            if (user.role === 'manager') {
+                window.location.href = '/dashboard-manager';
+            } else if (user.role === 'employee') {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/login';
+            }
+            return;
+        }
+        // Всё ок — супер-админ на своей странице
+    })();
+    </script>
+
+    <script>
+    // 1. Скрываем main сразу после загрузки DOM
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('main')?.style.setProperty('display', 'none');
+    });
+
+    (async function() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        let user;
+        try {
+            const res = await fetch('/api/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error('Не авторизован');
+            user = await res.json();
+        } catch {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        // Проверка роли (подстрой под нужные условия!)
+        if (user.role !== 'superadmin') {
+            if (user.role === 'manager') {
+                window.location.href = '/dashboard-manager';
+            } else if (user.role === 'employee') {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/login';
+            }
+            return;
+        }
+
+        // Всё ок, показываем main и убираем прелоадер
+        document.querySelector('main').style.display = '';
+        document.getElementById('preload')?.remove();
+    })();
+    </script>
 </x-app-layout>

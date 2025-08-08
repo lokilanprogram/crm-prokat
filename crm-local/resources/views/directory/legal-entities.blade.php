@@ -4,6 +4,15 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">Справочник. Юридические лица</h2>
     </x-slot>
 
+    <div id="preload" style="
+        position:fixed;inset:0;z-index:999999;display:flex;
+        align-items:center;justify-content:center;
+        background:#f4f6fb;">
+    <span style="font-size:22px;color:#888;">
+        Загрузка...
+    </span>
+    </div>
+
     <main class="w-full px-2 sm:px-4 py-6">
         <!-- Панель пользователя + метрики -->
         <div class="bg-gray-200 rounded-xl p-4 mb-6 flex items-center justify-between">
@@ -13,11 +22,11 @@
                     <div class="w-20 h-20 bg-black rounded-full"></div>
                     <div>
                         <div class="font-semibold text-xl">Бабинский Дмитрий</div>
-                        <div class="text-base text-gray-700">Филиал: Светлая 42</div>                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit" class="flex items-center gap-2 text-base text-gray-700 hover:text-red-600 mt-2">
-                                <i class="bi bi-box-arrow-right text-xl"></i> Выйти
-                            </button>
+                        <div class="text-base text-gray-700">Филиал: Светлая 42</div>
+                        <button id="logout-btn" class="flex items-center gap-2 text-base text-gray-700 hover:text-red-600 mt-2">
+                            <i class="bi bi-box-arrow-right text-xl"></i>
+                            Выйти
+                        </button>
                         </form>
                     </div>
                 </div>
@@ -233,130 +242,202 @@
             </button>
         </div>
 
-        <!-- Таблица -->
         <div class="overflow-auto rounded border bg-white">
             <table class="w-full text-xs border-collapse">
                 <thead class="bg-blue-50 uppercase">
-                    <tr>
-                        <th class="p-2 border text-center">#</th>
-                        <th class="p-2 border">Наименование</th>
-                        <th class="p-2 border">Балансы</th>
-                        <th class="p-2 border">Наши услуги</th>
-                        <th class="p-2 border">Платежи (прокат)</th>
-                        <th class="p-2 border">Долг (прокат)</th>
-                        <th class="p-2 border">Оборудование на руках</th>
-                        <th class="p-2 border">Информация по прокатам</th>
-                        <th class="p-2 border">Информация по квитанциям</th>
-                        <th class="p-2 border">Файлы</th>
-                        <th class="p-2 border">Акт сверки</th>
-                        <th class="p-2 border">Кто внёс</th>
-                    </tr>
+                <tr>
+                    <th class="p-2 border text-center w-[40px] align-center" rowspan="2"></th>
+                    <th class="p-2 border min-w-[170px] align-center" rowspan="2">Наименование</th>
+                    <th class="p-2 border min-w-[120px] align-center" rowspan="2">Балансы</th>
+                    <th class="p-2 border min-w-[120px] align-center" rowspan="2">Наши услуги</th>
+                    <th class="p-2 border align-center" rowspan="2">Платежи<br>(прокат)</th>
+                    <th class="p-2 border align-center" rowspan="2">Долг<br>(прокат)</th>
+                    <th class="p-2 border align-center" rowspan="2">Оборудование<br>на руках</th>
+                    <!-- Группа 1: Прокаты -->
+                    <th colspan="3" class="p-0 border min-w-[150px] max-w-[170px] align-top bg-blue-50 border-b border-gray-300 text-[13px] font-bold text-center">
+                    ИНФОРМАЦИЯ ПО ПРОКАТАМ
+                    </th>
+                    <!-- Группа 2: Квитанции -->
+                    <th colspan="3" class="p-0 border min-w-[150px] max-w-[170px] align-top bg-blue-50 border-b border-gray-300 text-[13px] font-bold text-center">
+                    ИНФОРМАЦИЯ ПО КВИТАНЦИЯМ
+                    </th>
+                    <th class="p-2 border align-center" rowspan="2">Файлы</th>
+                    <th class="p-2 border align-center" rowspan="2">Акт<br>сверки</th>
+                    <th class="p-2 border align-center" rowspan="2">Кто внёс</th>
+                </tr>
+                <tr>
+                    <!-- Прокаты -->
+                    <th class="border-r border-gray-300 text-[9px] font-semibold py-1 bg-blue-50 text-center">всего</th>
+                    <th class="border-r border-gray-300 text-[9px] font-semibold py-1 bg-blue-50 text-center">первый</th>
+                    <th class="border-r border-gray-300 text-[9px] font-semibold py-1 bg-blue-50 text-center">последний</th>
+                    <!-- Квитанции -->
+                    <th class="border-r border-gray-300 text-[9px] font-semibold py-1 bg-blue-50 text-center">всего</th>
+                    <th class="border-r border-gray-300 text-[9px] font-semibold py-1 bg-blue-50 text-center">первая</th>
+                    <th class="border-r border-gray-300 text-[9px] font-semibold py-1 bg-blue-50 text-center">последняя</th>
+                </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td class="p-2 border text-center">1</td>
-                        <td class="p-2 border">
-                            <div class="flex flex-col">
-                                <span class="text-xs text-gray-400">[1] 72</span>
-                                <span class="font-semibold text-sm">ООО «СМК "Авторитет"»</span>
-                                <span class="text-xs text-gray-500">6950214584 / 695001001</span>
+                <tr>
+                    <td class="p-2 border text-center align-center">
+                        <div>
+                            1
+                            <div class="mt-1 flex justify-center items-center text-[10px] gap-1">
+                                <i class="bi-person-vcard text-[12px]"></i>
+                                <span>72</span>
                             </div>
-                        </td>
-                        <td class="p-2 border text-center">
-                            <div class="flex flex-col items-center gap-1">
-                                <span class="text-xs font-medium text-gray-700">0.00</span>
-                                <button class="px-2 py-1 rounded bg-white border border-gray-300 text-gray-700 text-xs shadow-sm hover:bg-gray-100 transition">
-                                    ПОПОЛНИТЬ БАЛАНС
+                        </div>
+                    </td>
+
+                    <td class="p-2 border align-center">
+                    <div class="flex flex-col gap-0.5">
+                        <span class="font-semibold text-sm leading-tight">ООО «СМК "Авторитет"»</span>
+                        <span class="text-xs text-gray-500">6950214584 / 695001001</span>
+                    </div>
+                    </td>
+                    <td class="p-2 border align-center">
+                    <div class="flex flex-col items-start gap-1">
+                        <span class="text-xs text-gray-700 leading-tight">Прокат, ООО «Стройсервис»</span>
+                        <span class="text-xs text-gray-700 leading-tight">0.00</span>
+                        <button class="px-2 py-1 rounded bg-gray-100 border border-gray-300 text-gray-700 text-xs shadow-sm hover:bg-gray-200 transition mt-1">+ ПОПОЛНИТЬ БАЛАНС</button>
+                    </div>
+                    </td>
+                    <td class="p-2 border align-center">
+                    <div class="text-xs text-gray-700 leading-tight">Прокат: 461 710.80</div>
+                    <div class="text-xs text-gray-700 leading-tight">Услуги: 150 408.00</div>
+                    <div class="my-1 border-t border-gray-300"></div>
+                    <div class="font-bold text-xs text-gray-900 leading-tight">612 118.80</div>
+                    </td>
+                    <td class="p-2 border text-right align-center">602 118.80</td>
+                    <td class="p-2 border text-center text-red-600 font-semibold align-center text-[11px]">-10 000.00</td>
+                    <td class="p-2 border text-center align-center text-gray-400">нет</td>
+
+                    <!-- ТРИ ОТДЕЛЬНЫХ ТД для прокатов -->
+                    <td class="p-2 border text-blue-800 text-[11px] text-center">169</td>
+                    <td class="p-2 border text-[11px] text-center">22.11.2021</td>
+                    <td class="p-2 border text-[11px] text-center">19.06.2025</td>
+                    <!-- ТРИ ОТДЕЛЬНЫХ ТД для квитанций -->
+                    <td class="p-2 border text-gray-400 text-[11px] text-center" colspan="3">нет данных</td>
+                    <!-- <td class="p-2 border text-blue-800 text-[11px] text-center">нет данных</td>
+                    <td class="p-2 border text-[11px] text-center"></td>
+                    <td class="p-2 border text-[11px] text-center"></td> -->
+
+                    <!-- Остальные ячейки -->
+                    <td class="p-1 border align-center min-w-[110px] w-[120px] max-w-[140px]">
+                        <div class="flex flex-row items-stretch h-full">
+                            <!-- Файлы -->
+                            <div class="flex flex-col gap-0.5 flex-1 justify-center">
+                            <div class="flex items-center gap-0.5">
+                                <i class="bi bi-file-earmark text-blue-900 text-[13px]"></i>
+                                <span class="text-blue-900 underline text-[11px] leading-tight">136 от 22.11.2021</span>
+                            </div>
+                            <div class="flex items-center gap-0.5">
+                                <i class="bi bi-file-earmark text-blue-900 text-[13px]"></i>
+                                <span class="text-blue-900 underline text-[11px] leading-tight">176 от 12.01.2023</span>
+                            </div>
+                            <div class="flex items-center gap-0.5">
+                                <i class="bi bi-file-earmark text-blue-900 text-[13px]"></i>
+                                <span class="text-blue-900 underline text-[11px] leading-tight">176 от 12.01.2023</span>
+                            </div>
+                            <!-- ... другие файлы ... -->
+                            </div>
+                            <!-- Вертикальная линия на всю высоту -->
+                            <div class="w-px bg-gray-300 self-stretch"></div>
+                            <!-- Загрузка -->
+                            <div class="flex flex-col justify-center items-center px-1">
+                            <button class="bg-transparent hover:bg-blue-50 rounded p-0.5" title="Загрузить">
+                                <i class="bi bi-upload text-blue-900 text-[15px]"></i>
+                            </button>
+                            </div>
+                        </div>
+                    </td>
+
+                    <td class="p-2 border text-center align-center">
+                    <button class="bg-[#337AB7] hover:bg-[#23527c] text-white px-2 py-1 rounded text-xs mb-1"><i class="bi bi-credit-card-2-back"></i> РАСЧЕТЫ</button>
+                    <button class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded text-xs"><i class="bi bi-credit-card-2-back"></i> ПЛАТЕЖИ</button>
+                    </td>
+                    <td class="p-2 border text-center align-center">
+                    <div class="flex flex-col items-center">
+                        <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="user" class="w-8 h-8 rounded-full border mb-1">
+                        <span class="text-xs text-gray-400">22.11.2021</span>
+                    </div>
+                    </td>
+                    
+                </tr>
+                <tr>
+                    <td class="p-2 border text-center align-center">
+                        <div>
+                            2
+                            <div class="mt-1 flex justify-center items-center text-[10px] gap-1">
+                                <i class="bi-person-vcard text-[12px]"></i>
+                                <span>29</span>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="p-2 border align-center">
+                        <div class="flex flex-col gap-0.5">
+                            <span class="font-semibold text-sm leading-tight">ООО СК "Авторитет"</span>
+                            <span class="text-xs text-gray-500">6950214584 / 695001001</span>
+                        </div>
+                    </td>
+                    <td class="p-2 border align-center">
+                        <div class="flex flex-col items-start gap-1">
+                            <span class="text-xs text-gray-700 leading-tight">Прокат, ООО «Стройсервис»</span>
+                            <span class="text-xs text-gray-700 leading-tight">0.00</span>
+                            <button class="px-2 py-1 rounded bg-gray-100 border border-gray-300 text-gray-400 text-xs shadow-sm mt-1 cursor-not-allowed" disabled>+ ПОПОЛНИТЬ БАЛАНС</button>
+                        </div>
+                    </td>
+                    <td class="p-2 border align-center">
+                        <div class="text-xs text-gray-700 leading-tight">Прокат: 284 961.82</div>
+                        <div class="text-xs text-gray-700 leading-tight">Услуги: 114 350.00</div>
+                        <div class="my-1 border-t border-gray-300"></div>
+                        <div class="font-bold text-xs text-gray-900 leading-tight">399 311.82</div>
+                    </td>
+                    <td class="p-2 border text-right align-center">374 779.06</td>
+                    <td class="p-2 border text-center text-red-600 font-semibold align-center text-[11px]">-24 532.76</td>
+                    <td class="p-2 border text-center align-center text-gray-700">1</td>
+                    <!-- Прокаты -->
+                    <td class="p-2 border text-[11px] text-center">84</td>
+                    <td class="p-2 border text-[11px] text-center">04.07.2024</td>
+                    <td class="p-2 border text-[11px] text-center">27.06.2025</td>
+                    <!-- Квитанции -->
+                    <td class="p-2 border text-blue-800 text-[11px] text-center" colspan="3"><span class="text-gray-400">нет данных</span></td>
+                    <!-- Файлы -->
+                    <td class="p-1 border align-center min-w-[110px] w-[120px] max-w-[140px]">
+                        <div class="flex flex-row items-stretch h-full">
+                            <!-- Файлы -->
+                            <div class="flex flex-col gap-0.5 flex-1 justify-center">
+                                <div class="flex items-center gap-0.5">
+                                    <i class="bi bi-file-earmark text-blue-900 text-[13px]"></i>
+                                    <span class="text-blue-900 underline text-[11px] leading-tight">126 от 04.07.2024</span>
+                                </div>
+                                <div class="flex items-center gap-0.5">
+                                    <i class="bi bi-file-earmark text-blue-900 text-[13px]"></i>
+                                    <span class="text-blue-900 underline text-[11px] leading-tight">12 от 11.01.2025</span>
+                                </div>
+                            </div>
+                            <!-- Вертикальная линия -->
+                            <div class="w-px bg-gray-300 self-stretch"></div>
+                            <!-- Загрузка -->
+                            <div class="flex flex-col justify-center items-center px-1">
+                                <button class="bg-transparent hover:bg-blue-50 rounded p-0.5" title="Загрузить">
+                                    <i class="bi bi-upload text-blue-900 text-[15px]"></i>
                                 </button>
                             </div>
-                        </td>
-                        <td class="p-2 border">
-                            <div class="text-xs">Прокат: ООО «Стройсервис»</div>
-                            <div class="text-xs">461 710.80</div>
-                            <div class="text-xs">Услуги: 105 408.00</div>
-                            <div class="font-bold text-xs">612 118.80</div>
-                        </td>
-                        <td class="p-2 border text-right">602 118.80</td>
-                        <td class="p-2 border text-right text-red-600 font-semibold">-10 000.00</td>
-                        <td class="p-2 border text-center">1</td>
-                        <td class="p-2 border text-xs">
-                            <div>всего: 169</div>
-                            <div>первый: 22.11.2021</div>
-                            <div>последний: 19.06.2025</div>
-                        </td>
-                        <td class="p-2 border text-xs">
-                            <div>нет данных</div>
-                        </td>
-                        <td class="p-2 border text-xs">
-                            <div>
-                                <span class="block">136 от 22.11.2021</span>
-                                <span class="block">176 от 12.01.2023</span>
-                                <span class="block">107 от 09.01.2024</span>
-                                <span class="block">208 от 27.01.2025</span>
-                            </div>
-                        </td>
-                        <td class="p-2 border text-center">
-                            <button class="bg-[#337AB7] hover:bg-[#23527c] text-white px-2 py-1 rounded text-xs mb-1">РАСЧЕТЫ</button>
-                            <button class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded text-xs">ПЛАТЕЖИ</button>
-                        </td>
-                        <td class="p-2 border text-center">
-                            <div class="flex flex-col items-center">
-                                <img src="https://randomuser.me/api/portraits/men/33.jpg" alt="user" class="w-8 h-8 rounded-full border mb-1">
-                                <span class="text-xs text-gray-400">22.11.2021</span>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="p-2 border text-center">2</td>
-                        <td class="p-2 border">
-                            <div class="flex flex-col">
-                                <span class="text-xs text-gray-400">[354]</span>
-                                <span class="font-semibold text-sm">ООО СК "Авторитет"</span>
-                                <span class="text-xs text-gray-500">6950173939 / 695001001</span>
-                            </div>
-                        </td>
-                        <td class="p-2 border text-center">
-                            <div class="flex flex-col items-center gap-1">
-                                <span class="text-xs font-medium text-gray-700">0.00</span>
-                                <button class="px-2 py-1 rounded bg-white border border-gray-300 text-gray-700 text-xs shadow-sm hover:bg-gray-100 transition">
-                                    ПОПОЛНИТЬ БАЛАНС
-                                </button>
-                            </div>
-                        </td>
-                        <td class="p-2 border">
-                            <div class="text-xs">Прокат: ООО «Стройсервис»</div>
-                            <div class="text-xs">284 961.82</div>
-                            <div class="text-xs">Услуги: 114 350.00</div>
-                            <div class="font-bold text-xs">399 311.82</div>
-                        </td>
-                        <td class="p-2 border text-right">374 779.06</td>
-                        <td class="p-2 border text-right text-red-600 font-semibold">-24 532.76</td>
-                        <td class="p-2 border text-center">1</td>
-                        <td class="p-2 border text-xs">
-                            <div>всего: 84</div>
-                            <div>первый: 27.06.2005</div>
-                            <div>последний: 04.07.2024</div>
-                        </td>
-                        <td class="p-2 border text-xs">
-                            <div>нет данных</div>
-                        </td>
-                        <td class="p-2 border text-xs">
-                            <div>
-                                <span class="block">126 от 04.07.2024</span>
-                                <span class="block">112 от 11.01.2025</span>
-                            </div>
-                        </td>
-                        <td class="p-2 border text-center">
-                            <button class="bg-[#337AB7] hover:bg-[#23527c] text-white px-2 py-1 rounded text-xs mb-1">РАСЧЕТЫ</button>
-                            <button class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded text-xs">ПЛАТЕЖИ</button>
-                        </td>
-                        <td class="p-2 border text-center">
-                            <div class="flex flex-col items-center">
-                                <img src="https://randomuser.me/api/portraits/men/35.jpg" alt="user" class="w-8 h-8 rounded-full border mb-1">
-                                <span class="text-xs text-gray-400">04.07.2024</span>
-                            </div>
-                        </td>
-                    </tr>
+                        </div>
+                    </td>
+                    <!-- Акт сверки -->
+                    <td class="p-2 border text-center align-center">
+                    <button class="bg-[#337AB7] hover:bg-[#23527c] text-white px-2 py-1 rounded text-xs mb-1"><i class="bi bi-credit-card-2-back"></i> РАСЧЕТЫ</button>
+                    <button class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded text-xs"><i class="bi bi-credit-card-2-back"></i> ПЛАТЕЖИ</button>
+                    </td>
+                    <!-- Кто внёс -->
+                    <td class="p-2 border text-center align-center">
+                        <div class="flex flex-col items-center">
+                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="user" class="w-8 h-8 rounded-full border mb-1">
+                            <span class="text-xs text-gray-400">04.07.2024</span>
+                        </div>
+                    </td>
+                </tr>
                 </tbody>
             </table>
         </div>
@@ -377,26 +458,26 @@
                 </button>
             </div>
             <!-- Кнопки фильтров -->
-            <div class="flex flex-wrap gap-1 px-4 py-2 bg-white border-b">
-                <button class="bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-2 px-4 py-2 bg-white border-b">
+                <button class="bg-green-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-calendar-check"></i> ПРОКАТ СЕГОДНЯ
                 </button>
-                <button class="bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-red-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-exclamation-triangle"></i> НЕОПЛАЧЕННЫЕ
                 </button>
-                <button class="bg-red-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-red-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-counterclockwise"></i> НЕВОЗВРАЩЁННЫЕ
                 </button>
-                <button class="bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-600 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-left"></i> ВЕРНУТЬ СЕГОДНЯ
                 </button>
-                <button class="bg-green-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-green-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-cash-stack"></i> ПЕРЕПЛАТА
                 </button>
-                <button class="bg-blue-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-700 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-arrow-repeat"></i> ВОЗВРАЩЁННЫЕ
                 </button>
-                <button class="bg-blue-900 text-white px-2 py-1 rounded flex items-center gap-1 text-[13px]">
+                <button class="bg-blue-900 text-white px-2 py-1 rounded flex items-center gap-1 text-[12px]">
                     <i class="bi bi-journal-x"></i> НЕЗАКРЫТЫЕ
                 </button>
             </div>
@@ -529,8 +610,11 @@
                             <i class="bi bi-person text-gray-700"></i>
                             <label class="w-36 text-[14px]">Клиент:</label>
                             <input type="text" class="border rounded p-1 flex-1 text-[14px]" placeholder="введите первые буквы...">
+                            <button type="button" @click="showProkat = false; showClientCard = true">
+                                <i class="bi bi-person-plus"></i>
+                            </button>
                             <button type="button"><i class="bi bi-search"></i></button>
-                            <button type="button"><i class="bi bi-person-plus"></i></button>
+
                         </div>
                         <!-- юр лицо -->
                         <div class="flex items-center gap-2">
@@ -718,4 +802,107 @@
 
     @endsection
     </main>
+    <script>
+    document.getElementById('logout-btn')?.addEventListener('click', async function() {
+        // Если у тебя есть /api/logout, можно вызвать, если нет — просто очищай localStorage
+        const token = localStorage.getItem('token');
+        if (token) {
+            // Если api/logout не реализован — этот кусок можно удалить или закомментить
+            try {
+                await fetch('/api/logout', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': 'Bearer ' + token,
+                        'Content-Type': 'application/json'
+                    }
+                });
+            } catch (e) {
+                // Можно ничего не делать, сервер не обязателен для SPA-логаута
+            }
+        }
+        localStorage.removeItem('token');
+        window.location.href = '/login';
+    });
+    </script>
+    <script>
+    (async function() {
+        // 1. Проверка токена
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        // 2. Получаем пользователя
+        let user;
+        try {
+            const res = await fetch('/api/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error('Не авторизован');
+            user = await res.json();
+        } catch {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        // 3. Доступен только для role == 'superadmin'
+        if (user.role !== 'superadmin') {
+            if (user.role === 'manager') {
+                window.location.href = '/dashboard-manager';
+            } else if (user.role === 'employee') {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/login';
+            }
+            return;
+        }
+        // Всё ок — супер-админ на своей странице
+    })();
+    </script>
+
+    <script>
+    // 1. Скрываем main сразу после загрузки DOM
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('main')?.style.setProperty('display', 'none');
+    });
+
+    (async function() {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login';
+            return;
+        }
+
+        let user;
+        try {
+            const res = await fetch('/api/me', {
+                headers: { 'Authorization': 'Bearer ' + token }
+            });
+            if (!res.ok) throw new Error('Не авторизован');
+            user = await res.json();
+        } catch {
+            localStorage.removeItem('token');
+            window.location.href = '/login';
+            return;
+        }
+
+        // Проверка роли (подстрой под нужные условия!)
+        if (user.role !== 'superadmin') {
+            if (user.role === 'manager') {
+                window.location.href = '/dashboard-manager';
+            } else if (user.role === 'employee') {
+                window.location.href = '/dashboard';
+            } else {
+                window.location.href = '/login';
+            }
+            return;
+        }
+
+        // Всё ок, показываем main и убираем прелоадер
+        document.querySelector('main').style.display = '';
+        document.getElementById('preload')?.remove();
+    })();
+    </script>
 </x-app-layout>
